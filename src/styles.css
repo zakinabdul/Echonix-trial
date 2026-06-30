@@ -3454,3 +3454,86 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: none !important;
   transition: none !important;
 }
+
+/* ── Mobile-only Sticky Scroll Card Reveal overrides ── */
+@media (max-width: 767px) {
+  /* Force mobile headers to be visible (resets old scroll reveal opacity) */
+  #services .section-title,
+  #services .section-eyebrow,
+  #services .section-subtitle {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .solutions-section {
+    position: relative !important;
+    height: calc(100vh + (3 * 60vh)) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .solutions-sticky-container {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    background: #F8F6F1 !important;
+  }
+  .solutions-cards-track {
+    position: relative !important;
+    height: 310px !important;
+    width: 90vw !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+  .solution-card {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    opacity: 0 !important;
+    transform: translateX(120%) scale(0.5) !important; /* Slide in from right, scaled down */
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+  }
+  .solution-card.is-active {
+    opacity: 1 !important;
+    transform: translateX(0) scale(1) !important;
+    pointer-events: auto !important;
+  }
+  .solution-card.is-exiting {
+    opacity: 0 !important;
+    transform: translateX(-120%) scale(0.5) !important; /* Slide out to left, scaled down */
+  }
+  .solution-card .service-card {
+    height: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .solutions-dots {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 24px !important;
+    list-style: none !important;
+    padding: 0 !important;
+  }
+  .dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: rgba(26, 60, 46, 0.15) !important;
+    transition: width 0.3s ease, background 0.3s ease !important;
+  }
+  .dot.active {
+    width: 20px !important;
+    border-radius: 99px !important;
+    background: var(--clr-amber, #F5A623) !important;
+  }
+}
