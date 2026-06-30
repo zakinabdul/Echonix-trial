@@ -3408,15 +3408,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: rotate(180deg);
 }
 
-/* Services grid on mobile: allow flex for draggable */
-@media (max-width: 767px) {
-  .services__grid {
-    display: flex !important;
-    grid-template-columns: unset !important;
-    gap: 16px;
-    padding-bottom: 8px;
-  }
-}
+/* Services grid flex override removed — mobile now uses sticky scroll stack */
 
 /* Navbar scroll state via React class */
 .navbar--scrolled {
