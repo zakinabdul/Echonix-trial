@@ -177,7 +177,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: auto;
   display: block;
 }
-.navbar__logo:hover .logo-mark { transform: rotate(-5deg) scale(1.05); }
+
+.navbar__logo:hover .logo-mark {
+  transform: scale(1.08);
+}
 
 .logo-name {
   font-family: var(--font-display);
