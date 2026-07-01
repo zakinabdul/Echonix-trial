@@ -501,8 +501,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     135deg,
     #47b298 0%,
     #47b298 40%,
-    #1f4836 70%,
-    #142e22 100%
+    #47b298 40%,
+    #47b298 100%,
+
   );
   overflow: hidden;
   display: flex;
