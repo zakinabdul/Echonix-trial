@@ -499,8 +499,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-top: var(--nav-h);
   background: linear-gradient(
     135deg,
-    #0d2219 0%,
-    #1A3C2E 40%,
+    #47b298 0%,
+    #47b298 40%,
     #1f4836 70%,
     #142e22 100%
   );
