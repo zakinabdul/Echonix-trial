@@ -604,12 +604,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero__subheadline {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: rgba(247, 246, 242, 0.72);
+  color: rgb(0, 0, 0);
   max-width: 520px;
 }
 
 .hero__subheadline strong {
-  color: rgba(247, 246, 242, 0.95);
+  color: rgb(0, 0, 0);
   font-weight: 600;
 }
 
