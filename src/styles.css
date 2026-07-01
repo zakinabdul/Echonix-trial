@@ -173,7 +173,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: transform 0.3s var(--ease-out);
 }
 .logo-mark img {
-  height: 72px;
+  height: 90px;
   width: auto;
   display: block;
 }
