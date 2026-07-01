@@ -1039,7 +1039,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    PHASE 3 — TRUST BAR
 ═══════════════════════════════════════════════════ */
 .trust-bar {
-  background: #1A3C2E;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
