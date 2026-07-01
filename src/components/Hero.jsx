@@ -270,7 +270,7 @@ function DesktopHero() {
             </li>
             <li className="trust-signal">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              Since 2020
+              Since 1985
             </li>
           </motion.ul>
         </motion.div>
