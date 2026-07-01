@@ -20,7 +20,7 @@
   --font-body:    'Inter', sans-serif;
 
   --nav-h:    76px;
-  --nav-h-sm: 64px;
+  --nav-h-sm: 64px;                                                               
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
