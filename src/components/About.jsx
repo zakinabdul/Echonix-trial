@@ -50,9 +50,9 @@ export default function About() {
               loading="lazy"
               decoding="async"
             />
-            <div className="about__corner-tag" aria-label="Established 2020">
+            <div className="about__corner-tag" aria-label="Established 1985">
               <span className="corner-tag__line">Est.</span>
-              <span className="corner-tag__year">2020</span>
+              <span className="corner-tag__year">1985</span>
             </div>
             <div className="about__exp-badge">
               <span className="exp-badge__num">40<sup>+</sup></span>
