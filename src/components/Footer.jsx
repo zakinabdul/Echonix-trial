@@ -73,7 +73,7 @@ export default function Footer() {
           <div className="footer__col">
             <h3 className="footer__col-title">Follow</h3>
             <ul className="footer__links-list">
-              <li><a href="https://www.instagram.com/echonix" className="footer__link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.instagram.com/echonixtechnology" className="footer__link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
               <li><a href="https://youtube.com/@echonix" className="footer__link" target="_blank" rel="noopener noreferrer">YouTube</a></li>
               <li><a href="https://linkedin.com/company/echonix" className="footer__link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
               <li><a href="https://wa.me/919072551144" className="footer__link" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
