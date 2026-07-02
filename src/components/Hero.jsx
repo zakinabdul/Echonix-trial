@@ -132,7 +132,7 @@ function MobileHero() {
               alignItems: 'center',
               justifyContent: 'center',
               background: '#F5A623',
-              color: '#1A3C2E',
+              color: '#47b298',
               fontWeight: 700,
               fontSize: 14,
               borderRadius: 99,
