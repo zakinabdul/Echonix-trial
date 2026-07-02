@@ -27,7 +27,7 @@ export default function Footer() {
             <div className="footer__logo-wrap">
               <span className="footer__logo-text">ECHONIX</span>
             </div>
-            <p className="footer__tagline">Delivering High Quality Solar Solutions Since 2020</p>
+            <p className="footer__tagline">Delivering High Quality Solar Solutions Since 1985</p>
             <address className="footer__address">
               <span className="address-line">31/63F, Police Lane, Tirur,</span>
               <span className="address-line">Malappuram, Kerala - 676101</span>
