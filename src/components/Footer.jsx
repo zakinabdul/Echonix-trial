@@ -84,7 +84,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer__bottom">
           <p className="copyright">© 2025 Echonix Technology Pvt. Ltd. · <a href="#" className="bottom-link">Privacy Policy</a></p>
-          <p className="attribution">Powered by <a href="https://zabios.com" className="bottom-link" target="_blank" rel="noopener">Zabios</a></p>
+          <p className="attribution">Powered by <a href="https://zabios.in" className="bottom-link" target="_blank" rel="noopener">Zabios</a></p>
         </div>
       </div>
     </footer>
