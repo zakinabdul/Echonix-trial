@@ -176,7 +176,7 @@ function MobileHero() {
             marginTop: 20,
           }}
         >
-          {['✓ Free Site Survey', '✓ MNRE Certified', '✓ Since 2020'].map((text) => (
+          {['✓ Free Site Survey', '✓ MNRE Certified', '✓ Since 1985'].map((text) => (
             <span
               key={text}
               style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}
@@ -253,15 +253,15 @@ function DesktopHero() {
           </motion.div>
           <motion.ul className="hero__trust-signals" role="list" variants={fadeUp}>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               Free Site Survey
             </li>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               MNRE Certified
             </li>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               Since 1985
             </li>
           </motion.ul>
