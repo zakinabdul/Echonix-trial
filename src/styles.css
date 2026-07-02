@@ -509,6 +509,44 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   flex-direction: column;
 }
 
+/* Video Background */
+.hero__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dark Overlay */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.80) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero__video {
+    display: none;
+  }
+  .hero {
+    background-image: url(/hero-solar.png);
+    background-size: cover;
+    background-position: center;
+  }
+}
+
 /* Subtle dot grid texture */
 .hero::before {
   content: '';
@@ -545,7 +583,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Inner layout */
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 1280px;
   margin: 0 auto;
   width: 100%;
@@ -558,7 +596,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ── Text Content ──── */
-.hero__content { display: flex; flex-direction: column; gap: 28px; }
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  z-index: 2;
+}
 
 /* Eyebrow */
 .hero__eyebrow {
@@ -655,6 +699,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ── Hero Image ──── */
 .hero__image-wrapper {
   position: relative;
+  z-index: 2;
 }
 
 .hero__image-frame {

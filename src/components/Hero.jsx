@@ -38,27 +38,18 @@ function MobileHero() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           willChange: 'transform',
+          zIndex: 0,
         }}
       />
 
-      {/* Gradient overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(to bottom, rgba(26,60,46,0.85) 0%, rgba(26,60,46,0.6) 50%, rgba(26,60,46,0.85) 100%)',
-        }}
-      />
+      {/* Dark overlay */}
+      <div className="hero__overlay" />
 
       {/* Content */}
       <div
         style={{
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
@@ -239,8 +230,40 @@ function MobileHero() {
 
 /* ─── DESKTOP HERO ────────────────────────────────────── */
 function DesktopHero() {
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
+
   return (
     <section className="hero" id="hero" aria-label="Hero section">
+      {/* Video Background */}
+      {!isMobile ? (
+        <video
+          className="hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src="/hero.webm" type="video/webm" />
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: 'url(/hero-solar.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Dark Overlay */}
+      <div className="hero__overlay" />
+
       <div className="hero__glow" aria-hidden="true"></div>
       <div className="hero__inner">
         {/* LEFT: Text Content */}
