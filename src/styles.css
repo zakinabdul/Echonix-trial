@@ -500,8 +500,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: linear-gradient(
     135deg,
     #47b298 0%,
-    #47b298 40%,
-    #47b298 70%,
+    #47b298 100%,
+    #47b298 100%,
     #47b298 100%
   );
   overflow: hidden;
