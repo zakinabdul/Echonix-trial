@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { fadeUp } from '../hooks/animations'
 
-
 const ease = [0.16, 1, 0.3, 1]
 
 export default function Hero() {
@@ -164,7 +163,7 @@ function MobileHero() {
           </a>
         </motion.div>
 
-        {/* Trust signals - moved to flow layout to reduce gap */}
+        {/* Trust signals */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -192,7 +191,7 @@ function MobileHero() {
       <div
         style={{
           position: 'absolute',
-          bottom: 16, // reduced from 32px to bring closer to tags
+          bottom: 16,
           left: 0,
           right: 0,
           zIndex: 2,
@@ -223,44 +222,14 @@ function MobileHero() {
           />
         </motion.div>
       </div>
-
     </section>
   )
 }
 
 /* ─── DESKTOP HERO ────────────────────────────────────── */
 function DesktopHero() {
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
-
   return (
     <section className="hero" id="hero" aria-label="Hero section">
-      {/* Video Background */}
-      {!isMobile ? (
-        <video
-          className="hero__video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        >
-          <source src="/hero.webm" type="video/webm" />
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
-      ) : (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: 'url(/hero-solar.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            zIndex: 0,
-            pointerEvents: 'none',
-          }}
-        />
-      )}
-
       {/* Dark Overlay */}
       <div className="hero__overlay" />
 
