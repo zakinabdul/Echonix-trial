@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
@@ -13,8 +14,9 @@ import WhySolar from './components/WhySolar'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
+import ProjectsPage from './components/ProjectsPage'
 
-export default function App() {
+function HomePage() {
   return (
     <>
       <Navbar />
@@ -35,5 +37,14 @@ export default function App() {
       <Footer />
       <FloatingWhatsApp />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/projects" element={<ProjectsPage />} />
+    </Routes>
   )
 }

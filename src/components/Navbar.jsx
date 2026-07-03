@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const services = [
   { label: 'On-Grid Solar', href: '#' },
@@ -143,7 +144,7 @@ export default function Navbar() {
                 </AnimatePresence>
               </li>
 
-              <li className="nav__item"><a href="#projects" className="nav__link">Projects</a></li>
+              <li className="nav__item"><Link to="/projects" className="nav__link">Projects</Link></li>
               <li className="nav__item"><a href="#reviews" className="nav__link">Reviews</a></li>
               <li className="nav__item"><a href="#contact" className="nav__link">Contact</a></li>
             </ul>
@@ -321,10 +322,9 @@ export default function Navbar() {
                 </AnimatePresence>
               </motion.div>
 
-              {/* Projects */}
               <motion.div variants={navItemVariants}>
-                <a
-                  href="#projects"
+                <Link
+                  to="/projects"
                   onClick={closeMenu}
                   style={{
                     display: 'block',
@@ -336,7 +336,7 @@ export default function Navbar() {
                   }}
                 >
                   Projects
-                </a>
+                </Link>
               </motion.div>
 
               {/* Reviews */}
