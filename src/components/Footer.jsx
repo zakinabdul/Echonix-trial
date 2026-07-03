@@ -1,4 +1,8 @@
+import { Link, useLocation } from 'react-router-dom'
+
 export default function Footer() {
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
   return (
     <footer className="footer" role="contentinfo">
       <div className="footer__inner">
@@ -46,11 +50,11 @@ export default function Footer() {
           <div className="footer__col">
             <h3 className="footer__col-title">Company</h3>
             <ul className="footer__links-list">
-              <li><a href="#" className="footer__link">Home</a></li>
-              <li><a href="#about" className="footer__link">About Us</a></li>
-              <li><a href="#about" className="footer__link">Our Team</a></li>
-              <li><a href="#projects" className="footer__link">Projects</a></li>
-              <li><a href="#why-solar" className="footer__link">News</a></li>
+              <li><Link to="/" onClick={() => window.scrollTo({ top: 0 })} className="footer__link">Home</Link></li>
+              <li><a href={isHomePage ? '#about' : '/#about'} className="footer__link">About Us</a></li>
+              <li><a href={isHomePage ? '#about' : '/#about'} className="footer__link">Our Team</a></li>
+              <li><Link to="/projects" onClick={() => window.scrollTo({ top: 0 })} className="footer__link">Projects</Link></li>
+              <li><a href={isHomePage ? '#why-solar' : '/#why-solar'} className="footer__link">News</a></li>
             </ul>
           </div>
 
@@ -58,11 +62,11 @@ export default function Footer() {
           <div className="footer__col">
             <h3 className="footer__col-title">Services</h3>
             <ul className="footer__links-list">
-              <li><a href="#services" className="footer__link">On-Grid Solar</a></li>
-              <li><a href="#services" className="footer__link">Off-Grid Solar</a></li>
-              <li><a href="#services" className="footer__link">Hybrid Solar</a></li>
-              <li><a href="#services" className="footer__link">Solar Inverter</a></li>
-              <li><a href="#services" className="footer__link">Solar Accessories</a></li>
+              <li><a href={isHomePage ? '#services' : '/#services'} className="footer__link">On-Grid Solar</a></li>
+              <li><a href={isHomePage ? '#services' : '/#services'} className="footer__link">Off-Grid Solar</a></li>
+              <li><a href={isHomePage ? '#services' : '/#services'} className="footer__link">Hybrid Solar</a></li>
+              <li><a href={isHomePage ? '#services' : '/#services'} className="footer__link">Solar Inverter</a></li>
+              <li><a href={isHomePage ? '#services' : '/#services'} className="footer__link">Solar Accessories</a></li>
             </ul>
           </div>
 

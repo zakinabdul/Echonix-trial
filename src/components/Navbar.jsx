@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const services = [
   { label: 'On-Grid Solar', href: '#' },
@@ -48,6 +48,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
+  const isSolid = scrolled || !isHomePage
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -81,7 +84,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className={`navbar ${scrolled ? 'navbar--solid' : 'navbar--transparent'}`}
+        className={`navbar ${isSolid ? 'navbar--solid' : 'navbar--transparent'}`}
         id="navbar"
         role="banner"
         initial={{ y: -80, opacity: 0 }}
@@ -90,16 +93,30 @@ export default function Navbar() {
       >
         <div className="navbar__inner">
           {/* Logo */}
-          <a href="#" className="navbar__logo" id="logo-link" aria-label="Echonix Technology — Home">
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0 })}
+            className="navbar__logo"
+            id="logo-link"
+            aria-label="Echonix Technology — Home"
+          >
             <div className="logo-mark" aria-hidden="true">
               <img src="/logo.png" alt="Echonix Technology" />
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="navbar__nav" id="main-nav" aria-label="Main navigation">
             <ul className="nav__list" role="list">
-              <li className="nav__item"><a href="#" className="nav__link">Home</a></li>
+              <li className="nav__item">
+                <Link
+                  to="/"
+                  onClick={() => window.scrollTo({ top: 0 })}
+                  className="nav__link"
+                >
+                  Home
+                </Link>
+              </li>
 
               <li className="nav__item nav__item--dropdown" id="services-dropdown-container" ref={dropdownRef}>
                 <button
@@ -145,14 +162,22 @@ export default function Navbar() {
               </li>
 
               <li className="nav__item"><Link to="/projects" className="nav__link">Projects</Link></li>
-              <li className="nav__item"><a href="#reviews" className="nav__link">Reviews</a></li>
-              <li className="nav__item"><a href="#contact" className="nav__link">Contact</a></li>
+              <li className="nav__item">
+                <a href={isHomePage ? '#reviews' : '/#reviews'} className="nav__link">
+                  Reviews
+                </a>
+              </li>
+              <li className="nav__item">
+                <a href={isHomePage ? '#contact' : '/#contact'} className="nav__link">
+                  Contact
+                </a>
+              </li>
             </ul>
           </nav>
 
           {/* Right Actions */}
           <div className="navbar__actions">
-            <a href="#contact" className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
+             <a href={isHomePage ? '#contact' : '/#contact'} className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
             <button
               className={`hamburger${mobileOpen ? ' hamburger--active' : ''}`}
               id="hamburger-btn"
@@ -161,9 +186,9 @@ export default function Navbar() {
               onClick={() =>
                 setMobileOpen((v) => !v)}
             >
-              <span className="hamburger__bar" style={{ backgroundColor: scrolled ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: scrolled ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: scrolled ? 'var(--clr-dark)' : '#ffffff' }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
             </button>
           </div>
         </div>
@@ -241,9 +266,12 @@ export default function Navbar() {
             >
               {/* Home */}
               <motion.div variants={navItemVariants}>
-                <a
-                  href="#"
-                  onClick={closeMenu}
+                <Link
+                  to="/"
+                  onClick={() => {
+                    closeMenu()
+                    window.scrollTo({ top: 0 })
+                  }}
                   style={{
                     display: 'block',
                     fontSize: 32,
@@ -254,7 +282,7 @@ export default function Navbar() {
                   }}
                 >
                   Home
-                </a>
+                </Link>
               </motion.div>
 
               {/* Services with accordion */}
@@ -342,7 +370,7 @@ export default function Navbar() {
               {/* Reviews */}
               <motion.div variants={navItemVariants}>
                 <a
-                  href="#reviews"
+                  href={isHomePage ? '#reviews' : '/#reviews'}
                   onClick={closeMenu}
                   style={{
                     display: 'block',
@@ -360,7 +388,7 @@ export default function Navbar() {
               {/* Contact */}
               <motion.div variants={navItemVariants}>
                 <a
-                  href="#contact"
+                  href={isHomePage ? '#contact' : '/#contact'}
                   onClick={closeMenu}
                   style={{
                     display: 'block',
@@ -379,7 +407,7 @@ export default function Navbar() {
             {/* ── Bottom area ── */}
             <div style={{ padding: '0 32px 32px', flexShrink: 0 }}>
               <a
-                href="#contact"
+                href={isHomePage ? '#contact' : '/#contact'}
                 onClick={closeMenu}
                 id="cta-quote-mobile"
                 style={{

@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
 import projects from '../data/projects'
 
-// Show the first 6 projects on the home page (all current projects)
-const homeProjects = projects.slice(0, 6).map((p, i) => ({
+// Show only featured projects on the home page (e.g. 3-6, matching the grid layout)
+const homeProjects = projects.filter((p) => p.featured).slice(0, 6).map((p, i) => ({
   ...p,
   delay: [0, 0.1, 0.2, 0, 0.1, 0.2][i] ?? 0,
 }))
@@ -58,7 +58,7 @@ export default function Gallery() {
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           <Link to="/projects" className="gallery__view-all" id="view-all-projects">
-            View All Projects
+            View More
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M3.5 9H14.5M10 4.5L14.5 9L10 13.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

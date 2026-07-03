@@ -15,16 +15,13 @@ const remaining = projects.filter((p) => !p.featured)
  * Reuses .gallery section layout, .gallery__grid, .form-input, .credential-badge CSS.
  */
 export default function ProjectGrid() {
-  const [query, setQuery] = useState('')
   const [activeType, setActiveType] = useState(ALL)
 
   const filtered = useMemo(() => {
     return remaining.filter((p) => {
-      const matchesSearch = p.name.toLowerCase().includes(query.toLowerCase())
-      const matchesType = activeType === ALL || p.type === activeType
-      return matchesSearch && matchesType
+      return activeType === ALL || p.type === activeType
     })
-  }, [query, activeType])
+  }, [activeType])
 
   return (
     <section className="projects-all" aria-labelledby="all-projects-heading">
@@ -52,7 +49,7 @@ export default function ProjectGrid() {
           </motion.p>
         </motion.div>
 
-        {/* Search + Filter Controls */}
+        {/* Filter Controls */}
         <motion.div
           className="projects-controls"
           initial={{ opacity: 0, y: 20 }}
@@ -60,32 +57,6 @@ export default function ProjectGrid() {
           viewport={viewportOnce}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Search */}
-          <div className="projects-search">
-            <label htmlFor="project-search" className="sr-only">
-              Search projects by name
-            </label>
-            <input
-              type="search"
-              id="project-search"
-              className="form-input projects-search__input"
-              placeholder="Search projects…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search projects by name"
-            />
-            <svg
-              className="projects-search__icon"
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M12.5 12.5L16 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-          </div>
 
           {/* Filter pills */}
           <div className="projects-filters" role="group" aria-label="Filter by project type">
