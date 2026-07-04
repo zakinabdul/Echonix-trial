@@ -10,33 +10,39 @@ const featured = projects.filter((p) => p.featured)
  * Uses the same .gallery section layout and .gallery__grid CSS as the home Gallery.
  * Featured cards carry a small "Featured" badge.
  */
-export default function FeaturedProjects() {
+export default function FeaturedProjects({ hideHeader = false }) {
   if (featured.length === 0) return null
 
   return (
     <section className="gallery gallery--page" aria-labelledby="featured-heading">
       <div className="gallery__inner">
-        <motion.div
-          className="section-header"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-        >
-          <motion.p className="section-eyebrow" variants={fadeUp}>
-            Our Best Work
-          </motion.p>
-          <motion.h2
-            className="section-title"
-            id="featured-heading"
-            variants={fadeUp}
+        {hideHeader ? (
+          <h2 className="projects-section-title projects-section-title--white">
+            Featured Installations
+          </h2>
+        ) : (
+          <motion.div
+            className="section-header"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           >
-            Featured Projects
-          </motion.h2>
-          <motion.p className="section-subtitle" variants={fadeUp}>
-            Landmark installations that showcase our capabilities across Kerala.
-          </motion.p>
-        </motion.div>
+            <motion.p className="section-eyebrow" variants={fadeUp}>
+              Our Best Work
+            </motion.p>
+            <motion.h2
+              className="section-title"
+              id="featured-heading"
+              variants={fadeUp}
+            >
+              Featured Projects
+            </motion.h2>
+            <motion.p className="section-subtitle" variants={fadeUp}>
+              Landmark installations that showcase our capabilities across Kerala.
+            </motion.p>
+          </motion.div>
+        )}
 
         <div className="gallery__grid" role="list">
           {featured.map((project, i) => (

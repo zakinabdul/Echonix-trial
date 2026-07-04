@@ -3,10 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 
 const services = [
-  { label: 'On-Grid Solar', href: '#' },
-  { label: 'Off-Grid Solar', href: '#' },
-  { label: 'Hybrid Solar', href: '#' },
-  { label: 'Solar Inverter', href: '#' },
+  { label: 'On-Grid Solar', href: '/services#on-grid' },
+  { label: 'Off-Grid Solar', href: '/services#off-grid' },
+  { label: 'Hybrid Solar', href: '/services#hybrid' },
+  { label: 'Solar Inverters', href: '/services#inverters' },
+]
+
+const aboutLinks = [
+  { label: 'Who We Are', href: '/#about' },
+  { label: 'Our Team', href: '/#team' },
 ]
 
 // Desktop dropdown variants
@@ -46,12 +51,19 @@ const navItemVariants = {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false)
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false)
+  
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
+
   const location = useLocation()
   const isHomePage = location.pathname === '/'
   const isSolid = scrolled || !isHomePage
-  const dropdownRef = useRef(null)
+
+  const servicesDropdownRef = useRef(null)
+  const aboutDropdownRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -59,11 +71,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close desktop dropdown on outside click
+  // Close desktop dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false)
+      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(e.target)) {
+        setServicesDropdownOpen(false)
+      }
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(e.target)) {
+        setAboutDropdownOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -79,6 +94,22 @@ export default function Navbar() {
   const closeMenu = () => {
     setMobileOpen(false)
     setMobileServicesOpen(false)
+    setMobileAboutOpen(false)
+  }
+
+  // Smooth scroll for hashtag anchors when on homepage
+  const handleAnchorClick = (e, href) => {
+    if (isHomePage && href.startsWith('/#')) {
+      e.preventDefault()
+      const targetId = href.replace('/#', '')
+      const target = document.getElementById(targetId)
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 80,
+          behavior: 'smooth'
+        })
+      }
+    }
   }
 
   return (
@@ -118,22 +149,83 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              <li className="nav__item nav__item--dropdown" id="services-dropdown-container" ref={dropdownRef}>
+              {/* About Us Dropdown */}
+              <li className="nav__item nav__item--dropdown" id="about-dropdown-container" ref={aboutDropdownRef}>
                 <button
                   className="nav__link nav__link--dropdown-trigger"
-                  id="services-dropdown-btn"
+                  id="about-dropdown-btn"
                   aria-haspopup="true"
-                  aria-expanded={dropdownOpen}
-                  aria-controls="services-dropdown-menu"
-                  onClick={() => setDropdownOpen((v) => !v)}
+                  aria-expanded={aboutDropdownOpen}
+                  aria-controls="about-dropdown-menu"
+                  onClick={() => {
+                    setAboutDropdownOpen((v) => !v)
+                    setServicesDropdownOpen(false)
+                  }}
                 >
-                  Services
-                  <svg className={`dropdown-chevron${dropdownOpen ? ' dropdown-chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  About Us
+                  <svg className={`dropdown-chevron${aboutDropdownOpen ? ' dropdown-chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                     <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 <AnimatePresence>
-                  {dropdownOpen && (
+                  {aboutDropdownOpen && (
+                    <motion.div
+                      className="dropdown-menu"
+                      id="about-dropdown-menu"
+                      role="menu"
+                      aria-labelledby="about-dropdown-btn"
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      {aboutLinks.map((a, i) => (
+                        <a 
+                          key={i} 
+                          href={a.href} 
+                          className="dropdown-item" 
+                          role="menuitem" 
+                          onClick={(e) => {
+                            setAboutDropdownOpen(false)
+                            handleAnchorClick(e, a.href)
+                          }}
+                        >
+                          <span className="dropdown-item__icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              <circle cx="10" cy="8" r="3" stroke="#F5A623" strokeWidth="1.6" fill="none"/>
+                              <path d="M4 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#F5A623" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
+                            </svg>
+                          </span>
+                          <div>
+                            <strong>{a.label}</strong>
+                          </div>
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+
+              {/* Services Dropdown */}
+              <li className="nav__item nav__item--dropdown" id="services-dropdown-container" ref={servicesDropdownRef}>
+                <button
+                  className="nav__link nav__link--dropdown-trigger"
+                  id="services-dropdown-btn"
+                  aria-haspopup="true"
+                  aria-expanded={servicesDropdownOpen}
+                  aria-controls="services-dropdown-menu"
+                  onClick={() => {
+                    setServicesDropdownOpen((v) => !v)
+                    setAboutDropdownOpen(false)
+                  }}
+                >
+                  Services
+                  <svg className={`dropdown-chevron${servicesDropdownOpen ? ' dropdown-chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {servicesDropdownOpen && (
                     <motion.div
                       className="dropdown-menu"
                       id="services-dropdown-menu"
@@ -145,7 +237,7 @@ export default function Navbar() {
                       exit="exit"
                     >
                       {services.map((s, i) => (
-                        <a key={i} href={s.href} className="dropdown-item" role="menuitem" onClick={() => setDropdownOpen(false)}>
+                        <a key={i} href={s.href} className="dropdown-item" role="menuitem" onClick={() => setServicesDropdownOpen(false)}>
                           <span className="dropdown-item__icon" aria-hidden="true">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                               <path d="M11 2L3 11h6v7l8-9h-6V2z" stroke="#F5A623" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -162,6 +254,7 @@ export default function Navbar() {
               </li>
 
               <li className="nav__item"><Link to="/projects" className="nav__link">Projects</Link></li>
+              <li className="nav__item"><Link to="/blog" className="nav__link">News</Link></li>
               <li className="nav__item">
                 <a href={isHomePage ? '#reviews' : '/#reviews'} className="nav__link">
                   Reviews
@@ -285,7 +378,75 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
-              {/* Services with accordion */}
+              {/* About Us Accordion */}
+              <motion.div variants={navItemVariants}>
+                <button
+                  onClick={() => setMobileAboutOpen((v) => !v)}
+                  aria-expanded={mobileAboutOpen}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    fontSize: 32,
+                    fontWeight: 600,
+                    color: '#fff',
+                    marginBottom: mobileAboutOpen ? 16 : 28,
+                  }}
+                >
+                  About Us
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                    style={{
+                      transform: mobileAboutOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.25s ease',
+                    }}
+                  >
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {mobileAboutOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      style={{ overflow: 'hidden', paddingLeft: 16, marginBottom: 28 }}
+                    >
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 4 }}>
+                        {aboutLinks.map((a) => (
+                          <a
+                            key={a.label}
+                            href={a.href}
+                            onClick={(e) => {
+                              closeMenu()
+                              handleAnchorClick(e, a.href)
+                            }}
+                            style={{
+                              fontSize: 18,
+                              color: 'rgba(255,255,255,0.70)',
+                              textDecoration: 'none',
+                              fontWeight: 400,
+                            }}
+                          >
+                            {a.label}
+                          </a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Services Accordion */}
               <motion.div variants={navItemVariants}>
                 <button
                   onClick={() => setMobileServicesOpen((v) => !v)}
@@ -367,6 +528,23 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
+              <motion.div variants={navItemVariants}>
+                <Link
+                  to="/blog"
+                  onClick={closeMenu}
+                  style={{
+                    display: 'block',
+                    fontSize: 32,
+                    fontWeight: 600,
+                    color: '#fff',
+                    textDecoration: 'none',
+                    paddingBottom: 28,
+                  }}
+                >
+                  News
+                </Link>
+              </motion.div>
+
               {/* Reviews */}
               <motion.div variants={navItemVariants}>
                 <a
@@ -428,7 +606,7 @@ export default function Navbar() {
                 Get Free Quote
               </a>
               <a
-                href="https://wa.me/919847000000"
+                href="https://wa.me/919072551144"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

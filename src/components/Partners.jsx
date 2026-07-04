@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { fadeUp, viewportOnce } from '../hooks/animations'
+import { viewportOnce } from '../hooks/animations'
 
 // Using SVG logos for partner brands
 const logos = [

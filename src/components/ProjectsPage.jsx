@@ -51,10 +51,10 @@ export default function ProjectsPage() {
         </div>
 
         {/* Featured projects section */}
-        <FeaturedProjects />
+        <FeaturedProjects hideHeader={true} />
 
         {/* All remaining projects + search/filter */}
-        <ProjectGrid />
+        <ProjectGrid hideHeader={true} />
       </main>
       <Footer />
       <FloatingWhatsApp />

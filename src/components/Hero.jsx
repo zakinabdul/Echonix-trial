@@ -86,7 +86,7 @@ function MobileHero() {
             lineHeight: 1.15,
             marginTop: 12,
             marginBottom: 0,
-            fontFamily: 'Syne, sans-serif',
+            fontFamily: 'var(--font-display)',
           }}
         >
           Sun-Powered Solutions for Every Kerala Home
@@ -132,7 +132,7 @@ function MobileHero() {
               alignItems: 'center',
               justifyContent: 'center',
               background: '#F5A623',
-              color: '#47b298',
+              color: '#1A3C2E',
               fontWeight: 700,
               fontSize: 14,
               borderRadius: 99,

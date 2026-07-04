@@ -14,7 +14,7 @@ const remaining = projects.filter((p) => !p.featured)
  * ProjectGrid — All remaining (non-featured) projects with search + filter.
  * Reuses .gallery section layout, .gallery__grid, .form-input, .credential-badge CSS.
  */
-export default function ProjectGrid() {
+export default function ProjectGrid({ hideHeader = false }) {
   const [activeType, setActiveType] = useState(ALL)
 
   const filtered = useMemo(() => {
@@ -26,28 +26,33 @@ export default function ProjectGrid() {
   return (
     <section className="projects-all" aria-labelledby="all-projects-heading">
       <div className="gallery__inner">
-        {/* Section Header */}
-        <motion.div
-          className="section-header"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-        >
-          <motion.p className="section-eyebrow" variants={fadeUp}>
-            All Projects
-          </motion.p>
-          <motion.h2
-            className="section-title"
-            id="all-projects-heading"
-            variants={fadeUp}
+        {hideHeader ? (
+          <h2 className="projects-section-title">
+            All Projects Portfolio
+          </h2>
+        ) : (
+          <motion.div
+            className="section-header"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           >
-            Our Complete Portfolio
-          </motion.h2>
-          <motion.p className="section-subtitle" variants={fadeUp}>
-            From homes to institutions — solar done right, every time.
-          </motion.p>
-        </motion.div>
+            <motion.p className="section-eyebrow" variants={fadeUp}>
+              All Projects
+            </motion.p>
+            <motion.h2
+              className="section-title"
+              id="all-projects-heading"
+              variants={fadeUp}
+            >
+              Our Complete Portfolio
+            </motion.h2>
+            <motion.p className="section-subtitle" variants={fadeUp}>
+              From homes to institutions — solar done right, every time.
+            </motion.p>
+          </motion.div>
+        )}
 
         {/* Filter Controls */}
         <motion.div
