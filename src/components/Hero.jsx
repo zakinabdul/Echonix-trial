@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { fadeUp } from '../hooks/animations'
 
-
 const ease = [0.16, 1, 0.3, 1]
 
 export default function Hero() {
@@ -38,27 +37,18 @@ function MobileHero() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           willChange: 'transform',
+          zIndex: 0,
         }}
       />
 
-      {/* Gradient overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(to bottom, rgba(26,60,46,0.85) 0%, rgba(26,60,46,0.6) 50%, rgba(26,60,46,0.85) 100%)',
-        }}
-      />
+      {/* Dark overlay */}
+      <div className="hero__overlay" />
 
       {/* Content */}
       <div
         style={{
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
@@ -96,7 +86,7 @@ function MobileHero() {
             lineHeight: 1.15,
             marginTop: 12,
             marginBottom: 0,
-            fontFamily: 'Syne, sans-serif',
+            fontFamily: 'var(--font-display)',
           }}
         >
           Sun-Powered Solutions for Every Kerala Home
@@ -173,7 +163,7 @@ function MobileHero() {
           </a>
         </motion.div>
 
-        {/* Trust signals - moved to flow layout to reduce gap */}
+        {/* Trust signals */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -186,7 +176,7 @@ function MobileHero() {
             marginTop: 20,
           }}
         >
-          {['✓ Free Site Survey', '✓ MNRE Certified', '✓ Since 2020'].map((text) => (
+          {['✓ Free Site Survey', '✓ MNRE Certified', '✓ Since 1985'].map((text) => (
             <span
               key={text}
               style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}
@@ -201,7 +191,7 @@ function MobileHero() {
       <div
         style={{
           position: 'absolute',
-          bottom: 16, // reduced from 32px to bring closer to tags
+          bottom: 16,
           left: 0,
           right: 0,
           zIndex: 2,
@@ -232,7 +222,6 @@ function MobileHero() {
           />
         </motion.div>
       </div>
-
     </section>
   )
 }
@@ -241,6 +230,9 @@ function MobileHero() {
 function DesktopHero() {
   return (
     <section className="hero" id="hero" aria-label="Hero section">
+      {/* Dark Overlay */}
+      <div className="hero__overlay" />
+
       <div className="hero__glow" aria-hidden="true"></div>
       <div className="hero__inner">
         {/* LEFT: Text Content */}
@@ -261,16 +253,16 @@ function DesktopHero() {
           </motion.div>
           <motion.ul className="hero__trust-signals" role="list" variants={fadeUp}>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               Free Site Survey
             </li>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               MNRE Certified
             </li>
             <li className="trust-signal">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              Since 2020
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4.5" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Since 1985
             </li>
           </motion.ul>
         </motion.div>

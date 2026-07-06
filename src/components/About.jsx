@@ -1,7 +1,11 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { fadeUp, staggerContainer, viewportOnce } from '../hooks/animations'
+import { viewportOnce } from '../hooks/animations'
 
 export default function About() {
+  const [playing, setPlaying] = useState(false)
+  const videoId = 'dQw4w9WgXcQ' // Editable YouTube Video ID for About Us
+
   return (
     <section className="about" id="about" aria-labelledby="about-heading">
       <div className="about__inner">
@@ -41,26 +45,61 @@ export default function About() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
           <div className="about__image-frame">
-            <img
-              src="/about-team.png"
-              alt="Echonix team installing solar panels on a commercial rooftop in Kerala"
-              className="about__image"
-              width="900"
-              height="700"
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="about__corner-tag" aria-label="Established 2020">
-              <span className="corner-tag__line">Est.</span>
-              <span className="corner-tag__year">2020</span>
-            </div>
-            <div className="about__exp-badge">
-              <span className="exp-badge__num">40<sup>+</sup></span>
-              <span className="exp-badge__label">Years of<br />Expertise</span>
-            </div>
+            {playing ? (
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                title="Echonix Solar Corporate Video"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                style={{ border: 0, display: 'block', width: '100%', height: '100%', aspectRatio: '900/700' }}
+              />
+            ) : (
+              <div 
+                className="about__video-trigger"
+                onClick={() => setPlaying(true)}
+                style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}
+              >
+                <img
+                  src="/about-team.png"
+                  alt="Echonix team installing solar panels on a commercial rooftop in Kerala"
+                  className="about__image"
+                  width="900"
+                  height="700"
+                  loading="lazy"
+                  decoding="async"
+                />
+                
+                {/* Play Button Overlay */}
+                <div className="about__play-overlay" style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(0,0,0,0.2)'
+                }}>
+                  <div className="play-btn" aria-label="Play video">
+                    <span className="play-btn__icon" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div className="about__corner-tag" aria-label="Established 1985">
+                  <span className="corner-tag__line">Est.</span>
+                  <span className="corner-tag__year">1985</span>
+                </div>
+                <div className="about__exp-badge">
+                  <span className="exp-badge__num">40<sup>+</sup></span>
+                  <span className="exp-badge__label">Years of<br />Expertise</span>
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
     </section>
   )
 }
+

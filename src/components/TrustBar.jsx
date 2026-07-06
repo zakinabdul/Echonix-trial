@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { useIsMobile } from '../hooks/useIsMobile'
 
 const stats = [
   { count: 3.5, suffix: '+ MW', label: 'Solar Installed', isDecimal: true },
@@ -58,8 +57,6 @@ const fadeUp = {
 }
 
 export default function TrustBar() {
-  const isMobile = useIsMobile()
-
   return (
     <div className="trust-bar" id="trust-bar">
       {stats.map((stat, i) => (
