@@ -266,38 +266,14 @@ function DesktopHero() {
             </li>
           </motion.ul>
         </motion.div>
+      </div>
 
-        {/* RIGHT: Hero Image */}
-        <motion.div
-          className="hero__image-wrapper"
-          id="hero-image-wrapper"
-          aria-hidden="true"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="hero__image-frame">
-            <div className="hero__image-container">
-              <img
-                src="/hero-solar.png"
-                alt="Professional solar panel installation on a Kerala home rooftop"
-                className="hero__image"
-                id="hero-img"
-                width="900"
-                height="900"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </div>
-            {/* Badge — desktop only */}
-            <div className="hero__badge">
-              <div className="hero__badge-inner">
-                <span className="badge-number">500+</span>
-                <span className="badge-label">Homes Powered</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+      {/* Floating trust badge over full background */}
+      <div className="hero__badge">
+        <div className="hero__badge-inner">
+          <span className="badge-number">500+</span>
+          <span className="badge-label">Homes Powered</span>
+        </div>
       </div>
 
       {/* Scroll indicator */}

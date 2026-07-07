@@ -16,9 +16,9 @@ const aboutLinks = [
 
 // Desktop dropdown variants
 const dropdownVariants = {
-  hidden: { opacity: 0, y: -8 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.15 } },
+  hidden: { opacity: 0, x: '-50%', y: -8 },
+  visible: { opacity: 1, x: '-50%', y: 0, transition: { duration: 0.2 } },
+  exit: { opacity: 0, x: '-50%', y: -8, transition: { duration: 0.15 } },
 }
 
 // Mobile overlay — slides in from right
