@@ -120,7 +120,7 @@ export default function Navbar() {
         role="banner"
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       >
         <div className="navbar__inner">
           {/* Logo */}
@@ -132,7 +132,15 @@ export default function Navbar() {
             aria-label="Echonix Technology — Home"
           >
             <div className="logo-mark" aria-hidden="true">
-              <img src="/logo.png" alt="Echonix Technology" />
+              <img src="/logo.png" alt="Echonix Technology Logo" />
+            </div>
+            <span className="logo-separator" aria-hidden="true"></span>
+            <div className="logo-mark logo-mark--mah" aria-hidden="true">
+              <img
+                src="/mah.png"
+                alt="Mahindra Solarize Logo"
+                className="mah-logo-img"
+              />
             </div>
           </Link>
 
@@ -255,29 +263,29 @@ export default function Navbar() {
 
               <li className="nav__item"><Link to="/projects" className="nav__link">Projects</Link></li>
               <li className="nav__item"><Link to="/blog" className="nav__link">News</Link></li>
-              <li className="nav__item">
-                <a href={isHomePage ? '#reviews' : '/#reviews'} className="nav__link">
-                  Reviews
-                </a>
-              </li>
-              <li className="nav__item">
-                <a href={isHomePage ? '#contact' : '/#contact'} className="nav__link">
-                  Contact
-                </a>
-              </li>
             </ul>
           </nav>
 
           {/* Right Actions */}
           <div className="navbar__actions">
-             <a href={isHomePage ? '#contact' : '/#contact'} className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
+            {/* WhatsApp mobile button - always visible on mobile, hidden on desktop */}
+            <a
+              href="https://wa.me/919072551144"
+              className="navbar__wa-mobile"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+            >
+              <img src="/whatsapp-white.png" alt="" width="20" height="20" />
+            </a>
+
+            <a href={isHomePage ? '#contact' : '/#contact'} className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
             <button
               className={`hamburger${mobileOpen ? ' hamburger--active' : ''}`}
               id="hamburger-btn"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
-              onClick={() =>
-                setMobileOpen((v) => !v)}
+              onClick={() => setMobileOpen((v) => !v)}
             >
               <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
               <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
@@ -538,48 +546,13 @@ export default function Navbar() {
                     fontWeight: 600,
                     color: '#fff',
                     textDecoration: 'none',
-                    paddingBottom: 28,
+                    paddingBottom: 0,
                   }}
                 >
                   News
                 </Link>
               </motion.div>
 
-              {/* Reviews */}
-              <motion.div variants={navItemVariants}>
-                <a
-                  href={isHomePage ? '#reviews' : '/#reviews'}
-                  onClick={closeMenu}
-                  style={{
-                    display: 'block',
-                    fontSize: 32,
-                    fontWeight: 600,
-                    color: '#fff',
-                    textDecoration: 'none',
-                    paddingBottom: 28,
-                  }}
-                >
-                  Reviews
-                </a>
-              </motion.div>
-
-              {/* Contact */}
-              <motion.div variants={navItemVariants}>
-                <a
-                  href={isHomePage ? '#contact' : '/#contact'}
-                  onClick={closeMenu}
-                  style={{
-                    display: 'block',
-                    fontSize: 32,
-                    fontWeight: 600,
-                    color: '#fff',
-                    textDecoration: 'none',
-                    paddingBottom: 0,
-                  }}
-                >
-                  Contact
-                </a>
-              </motion.div>
             </motion.nav>
 
             {/* ── Bottom area ── */}

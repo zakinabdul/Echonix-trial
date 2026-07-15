@@ -52,15 +52,16 @@ export default function ProjectCard({ project, delay = 0, showBadge = false }) {
 
       <div className="gallery-card__overlay">
         <div className="gallery-card__info">
-          <p className="gallery-card__name">{project.name}</p>
-          {project.kw && (
-            <p className="gallery-card__kw">{project.kw}</p>
-          )}
-          {!project.kw && project.location && (
-            <p className="gallery-card__kw">{project.location}</p>
-          )}
+          <h3 className="gallery-card__name">{project.name}</h3>
+          <div className="gallery-card__meta-row">
+            {project.kw && <span className="gallery-card__kw">{project.kw}</span>}
+            {project.kw && project.location && <span className="gallery-card__divider">·</span>}
+            {project.location && <span className="gallery-card__location">{project.location}</span>}
+          </div>
           {project.type && (
-            <p className="gallery-card__meta">{project.type}{project.year ? ` · ${project.year}` : ''}</p>
+            <p className="gallery-card__meta" style={{ fontSize: '13px', marginTop: '4px', opacity: 0.8 }}>
+              {project.type}{project.year ? ` · ${project.year}` : ''}
+            </p>
           )}
         </div>
       </div>
