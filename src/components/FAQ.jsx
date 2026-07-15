@@ -35,12 +35,12 @@ const faqs = [
   },
 ]
 
-function FAQItem({ item, index }) {
-  const [open, setOpen] = useState(false)
+function FAQItem({ item, index, defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen)
 
   return (
     <motion.div
-      className="faq-item"
+      className={`faq-item ${open ? 'is-open' : ''}`}
       id={item.id}
       role="listitem"
       initial={{ opacity: 0, y: 20 }}
@@ -105,11 +105,14 @@ export default function FAQ() {
         >
           <motion.p className="section-eyebrow" variants={fadeUp}>Got Questions?</motion.p>
           <motion.h2 className="section-title faq__title" id="faq-heading" variants={fadeUp}>Clear Your Doubts</motion.h2>
+          <motion.p className="faq__mobile-hint" variants={fadeUp}>
+            Tap any question to read the answer
+          </motion.p>
         </motion.div>
 
         <div className="faq__list" id="faq-list" role="list">
           {faqs.map((item, i) => (
-            <FAQItem key={item.id} item={item} index={i} />
+            <FAQItem key={item.id} item={item} index={i} defaultOpen={i === 0} />
           ))}
         </div>
       </div>

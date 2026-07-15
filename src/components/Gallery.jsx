@@ -42,8 +42,12 @@ export default function Gallery() {
               </div>
               <div className="gallery-card__overlay">
                 <div className="gallery-card__info">
-                  <p className="gallery-card__name">{p.name}</p>
-                  <p className="gallery-card__kw">{p.kw}</p>
+                  <h3 className="gallery-card__name">{p.name}</h3>
+                  <div className="gallery-card__meta-row">
+                    {p.kw && <span className="gallery-card__kw">{p.kw}</span>}
+                    {p.kw && p.location && <span className="gallery-card__divider">·</span>}
+                    {p.location && <span className="gallery-card__location">{p.location}</span>}
+                  </div>
                 </div>
               </div>
             </motion.article>

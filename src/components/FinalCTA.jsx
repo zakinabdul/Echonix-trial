@@ -67,54 +67,77 @@ export default function FinalCTA() {
                   <p style={{ fontSize: 14, opacity: 0.7 }}>Expect a call within 2 hours.</p>
                 </motion.div>
               ) : (
-                <form className="cta-card__form" id="cta-form" onSubmit={handleSubmit} noValidate>
-                  <div className="form-group">
-                    <label htmlFor="cta-name" className="sr-only">Full Name</label>
-                    <input
-                      type="text"
-                      id="cta-name"
-                      className="form-input"
-                      placeholder="Your Name"
-                      required
-                      aria-required="true"
-                      value={formData.name}
-                      onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    />
+                <>
+                  <a
+                    href="https://wa.me/919072551144"
+                    className="cta-card__wa-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      background: '#25D366',
+                      color: '#fff',
+                      height: '56px',
+                      borderRadius: '99px',
+                      fontSize: '17px',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 12px rgba(37,211,102,0.3)',
+                      width: '100%',
+                      boxSizing: 'border-box',
+                      marginBottom: '16px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <span>💬 WhatsApp us for a free quote</span>
+                  </a>
+                  <div style={{
+                    textAlign: 'center',
+                    color: 'rgba(255, 255, 255, 0.5)',
+                    fontSize: '13px',
+                    marginBottom: '16px',
+                    fontFamily: 'var(--font-body)'
+                  }}>
+                    — or fill the form below —
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="cta-phone" className="sr-only">Phone Number</label>
-                    <input
-                      type="tel"
-                      id="cta-phone"
-                      className="form-input"
-                      placeholder="Phone Number"
-                      required
-                      aria-required="true"
-                      pattern="[0-9]{10}"
-                      value={formData.phone}
-                      onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                    />
-                  </div>
-                  <button type="submit" className="cta-submit-btn" id="cta-submit-btn">
-                    <span>Get Free Quote</span>
-                    <span className="btn-arrow" aria-hidden="true">→</span>
-                  </button>
-                </form>
+                  <form className="cta-card__form" id="cta-form" onSubmit={handleSubmit} noValidate>
+                    <div className="form-group">
+                      <label htmlFor="cta-name" className="sr-only">Full Name</label>
+                      <input
+                        type="text"
+                        id="cta-name"
+                        className="form-input"
+                        placeholder="Your Name"
+                        required
+                        aria-required="true"
+                        value={formData.name}
+                        onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="cta-phone" className="sr-only">Phone Number</label>
+                      <input
+                        type="tel"
+                        id="cta-phone"
+                        className="form-input"
+                        placeholder="Phone Number"
+                        required
+                        aria-required="true"
+                        pattern="[0-9]{10}"
+                        value={formData.phone}
+                        onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
+                      />
+                    </div>
+                    <button type="submit" className="cta-submit-btn" id="cta-submit-btn">
+                      <span>Get Free Quote</span>
+                      <span className="btn-arrow" aria-hidden="true">→</span>
+                    </button>
+                  </form>
+                </>
               )}
-
-              <div className="cta-card__direct">
-                <p className="direct-text">Or WhatsApp us directly</p>
-                <a
-                  href="https://wa.me/919072551144"
-                  className="wa-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Chat with Echonix on WhatsApp"
-                >
-                  <img src="/whatsapp-green.png" alt="" width="16" height="16" className="wa-icon" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: 4 }} />
-                  <span>+91 9072 55 11 44</span>
-                </a>
-              </div>
             </div>
           </motion.div>
         </div>
