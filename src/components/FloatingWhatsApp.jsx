@@ -34,13 +34,21 @@ export default function FloatingWhatsApp() {
       whileTap={{ scale: 0.95 }}
     >
       <div className="floating-wa__layout-container">
+        <span className="floating-wa__icon-wrap">
+          <img src="/whatsapp-white.png" alt="" className="floating-wa__svg" style={{ display: 'block' }} />
+          <span className="floating-wa__pulse-dot" />
+        </span>
+
+        {/* Hover-triggered label for desktop devices */}
+        <span className="floating-wa__label-hover">Chat on WhatsApp</span>
+
         <AnimatePresence>
           {showLabel && (
             <motion.span
               className="floating-wa__label-animated"
-              initial={{ opacity: 0, width: 0, x: 20 }}
+              initial={{ opacity: 0, width: 0, x: -20 }}
               animate={{ opacity: 1, width: 'auto', x: 0 }}
-              exit={{ opacity: 0, width: 0, x: 20 }}
+              exit={{ opacity: 0, width: 0, x: -20 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               style={{ overflow: 'hidden' }}
             >
@@ -48,14 +56,6 @@ export default function FloatingWhatsApp() {
             </motion.span>
           )}
         </AnimatePresence>
-        
-        {/* Hover-triggered label for desktop devices */}
-        <span className="floating-wa__label-hover">Chat on WhatsApp</span>
-        
-        <span className="floating-wa__icon-wrap">
-          <img src="/whatsapp-white.png" alt="" className="floating-wa__svg" style={{ display: 'block' }} />
-          <span className="floating-wa__pulse-dot" />
-        </span>
       </div>
     </motion.a>
   )

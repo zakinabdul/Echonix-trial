@@ -232,7 +232,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .navbar__logo:hover .logo-mark {
-  transform: scale(1.08);
+  /* hover scale removed — logos remain static */
 }
 
 .logo-name {
@@ -3452,7 +3452,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex;
   align-items: center;
   position: relative;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 /* Hover-triggered label for desktop */
@@ -3465,17 +3465,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-radius: 30px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   opacity: 0;
-  transform: translateX(12px);
+  transform: translateX(-12px);
   transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
   white-space: nowrap;
-  margin-right: 12px;
+  margin-left: 12px;
 }
 
 .floating-wa:hover .floating-wa__label-hover {
   opacity: 1;
   transform: translateX(0);
 }
+
 
 /* Animated label triggered by React state */
 .floating-wa__label-animated {
@@ -3492,7 +3493,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-radius: 30px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   white-space: nowrap;
-  margin-right: 12px;
+  margin-left: 12px;
   display: inline-block;
 }
 

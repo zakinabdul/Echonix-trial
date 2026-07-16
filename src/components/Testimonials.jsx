@@ -5,8 +5,8 @@ import { fadeUp, viewportOnce } from '../hooks/animations'
 const testimonials = [
   {
     id: 'testi-card-1',
-    quote: "Echonix installed our 5KW system in just 3 days. The subsidy process was handled completely by them. Our electricity bill dropped from ₹4,500 to under ₹300.",
-    name: 'Abdul Rahiman',
+    quote: "Since this solar company is experienced in the solar field, I was able to understand it deeply. I got the best and most suitable panels for my needs. The sales executive was highly professional and explained everything in detail.",
+    name: 'Aseem Hassan',
     location: 'Malappuram, Kerala',
     avatar: 'A',
     label: 'Customer Testimonial · Malappuram',
