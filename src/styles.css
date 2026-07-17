@@ -3448,55 +3448,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   pointer-events: auto;
 }
 
-.floating-wa__layout-container {
-  display: flex;
-  align-items: center;
-  position: relative;
-  flex-direction: row;
-}
-
-/* Hover-triggered label for desktop */
-.floating-wa__label-hover {
-  background: var(--clr-white);
-  color: var(--clr-dark);
-  font-size: 15px;
-  font-weight: 700;
-  padding: 10px 20px;
-  border-radius: 30px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  opacity: 0;
-  transform: translateX(-12px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
-  white-space: nowrap;
-  margin-left: 12px;
-}
-
-.floating-wa:hover .floating-wa__label-hover {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-
-/* Animated label triggered by React state */
-.floating-wa__label-animated {
-  display: flex;
-  align-items: center;
-}
-
-.floating-wa__label-text {
-  background: var(--clr-white);
-  color: var(--clr-dark);
-  font-size: 15px;
-  font-weight: 700;
-  padding: 10px 20px;
-  border-radius: 30px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  white-space: nowrap;
-  margin-left: 12px;
-  display: inline-block;
-}
-
 /* Icon button container */
 .floating-wa__icon-wrap {
   width: 60px;
@@ -3549,16 +3500,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(245, 166, 35, 0);
-  }
-}
-
-@media (max-width: 600px) {
-  .floating-wa {
-    bottom: 24px;
-    right: 20px;
-  }
-  .floating-wa__label-hover {
-    display: none; /* Hide hover label on mobile screens */
   }
 }
 
@@ -5098,3 +5039,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 
+
+/* ── SectionReveal wrapper — must never restrict section layout ── */
+/* The motion.div added by SectionReveal should behave as a full-width block */
+[data-section-reveal] {
+  width: 100%;
+  display: block;
+}

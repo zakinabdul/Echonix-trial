@@ -8,12 +8,12 @@ const ease = [0.16, 1, 0.3, 1]
 // ── Hero image slideshow config ───────────────────────────
 // To add more images, just push new paths to this array.
 const HERO_IMAGES = [
-  '/heroes/hero-solar.png',
-  '/heroes/hero1.jpeg',
+  '/heroes/heronew.png',
+  '/heroes/hero2.png',
 ]
 
-const SLIDE_INTERVAL = 3000  // ms between slides
-const FADE_DURATION  = 1.2   // seconds for cross-fade
+const SLIDE_INTERVAL = 7000  // ms between slides (7s — slow & smooth)
+const FADE_DURATION  = 2.5   // seconds for cross-fade (very smooth)
 
 // ── Slideshow hook ─────────────────────────────────────────
 function useHeroSlideshow(images, interval) {
@@ -132,7 +132,7 @@ function MobileHero() {
             margin: 0,
           }}
         >
-          Kerala's Trusted Solar Experts
+          Kerala's Trusted Solar Energy Experts
         </motion.p>
 
         {/* H1 */}
@@ -150,7 +150,7 @@ function MobileHero() {
             fontFamily: 'var(--font-display)',
           }}
         >
-          Sun-Powered Solutions for Kerala
+          Kerala's Trusted Solar Energy Experts
         </motion.h1>
 
         {/* Subtext */}
@@ -299,9 +299,9 @@ function DesktopHero() {
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } } }}
         >
-          <motion.p className="hero__eyebrow" variants={fadeUp}>Kerala's Trusted Solar Experts</motion.p>
+          <motion.p className="hero__eyebrow" variants={fadeUp}>Kerala's Trusted Solar Energy Experts</motion.p>
           <motion.h1 className="hero__headline" variants={fadeUp}>
-            Sun-Powered Solutions for Kerala
+            Kerala's Trusted Solar Energy Experts
           </motion.h1>
           <motion.p className="hero__subheadline" variants={fadeUp}>
             Up to <strong>₹78,000 government subsidy</strong>. MNRE empanelled &amp; Mahindra Solarize partner.
