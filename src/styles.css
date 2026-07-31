@@ -1034,12 +1034,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   /* Show hamburger, hide desktop nav & CTA */
   .navbar__nav,
   .btn--amber:not(.btn--full) { display: none; }
-  
+
+  /* Task 3: Mobile navbar — white background matching desktop solid state */
   .navbar {
     height: 64px !important;
-    background: rgba(26, 60, 46, 0.95) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
     top: 12px !important;
     left: 12px !important;
     right: 12px !important;
@@ -1055,10 +1058,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     gap: 5px;
   }
 
+  /* Task 3: Hamburger bars — dark on white background */
   .hamburger__bar {
     width: 22px !important;
     height: 2px !important;
-    background-color: #ffffff !important;
+    background-color: var(--clr-dark) !important;
   }
 
   .navbar__inner { gap: 8px; padding: 0 16px; }
@@ -1076,20 +1080,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     gap: 8px;
   }
 
+  /* Task 1: Hide WhatsApp button in mobile navbar */
   .navbar__wa-mobile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #25d366;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-  }
-
-  .navbar__wa-mobile img {
-    width: 22px;
-    height: 22px;
+    display: none !important;
   }
 
   /* Stack hero vertically */
@@ -3652,6 +3645,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ── Mobile-only Sticky Scroll Card Reveal overrides ── */
+/* Task 2 + Task 4: Mobile swipeable cards — CSS scroll-snap, no sticky scroll height */
 @media (max-width: 767px) {
   /* Force mobile headers to be visible (resets old scroll reveal opacity) */
   #services .section-title,
@@ -3662,75 +3656,78 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     transition: none !important;
   }
 
+  /* Task 4: Remove the sticky-scroll height — section is now normal flow */
   .solutions-section {
     position: relative !important;
-    height: calc(100vh + (3 * 60vh)) !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    height: auto !important;
+    padding: 60px 0 !important;
+    margin: 0 !important;
   }
+
+  /* Task 4: Sticky container becomes a plain flex column */
   .solutions-sticky-container {
-    position: sticky !important;
-    top: 0 !important;
-    height: 100vh !important;
+    position: static !important;
+    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    overflow: hidden !important;
+    justify-content: flex-start !important;
+    overflow: visible !important;
     padding: 0 !important;
     background: #F8F6F1 !important;
   }
+
+  /* Task 2: Horizontally scrollable swipe container */
   .solutions-cards-track {
-    position: relative !important;
-    height: 310px !important;
-    width: 90vw !important;
-    max-width: 340px !important;
-    margin: 0 auto !important;
-  }
-  .solution-card {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: static !important;
+    height: auto !important;
     width: 100% !important;
-    opacity: 0 !important;
-    transform: translateX(120%) scale(0.5) !important; /* Slide in from right, scaled down */
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    pointer-events: none !important;
+    max-width: 100% !important;
     margin: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 8px 20px 16px !important;
+    /* Hide scrollbar visually */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
-  .solution-card.is-active {
+  .solutions-cards-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Task 2: Each card snaps and has fixed width */
+  .solution-card {
+    position: static !important;
+    flex: 0 0 82vw !important;
+    max-width: 320px !important;
     opacity: 1 !important;
-    transform: translateX(0) scale(1) !important;
+    transform: none !important;
+    transition: none !important;
     pointer-events: auto !important;
+    margin: 0 !important;
+    scroll-snap-align: start !important;
   }
+  .solution-card:last-child {
+    /* Extra trailing space so last card snaps cleanly */
+    margin-right: 20px !important;
+  }
+  .solution-card.is-active,
   .solution-card.is-exiting {
-    opacity: 0 !important;
-    transform: translateX(-120%) scale(0.5) !important; /* Slide out to left, scaled down */
+    opacity: 1 !important;
+    transform: none !important;
   }
   .solution-card .service-card {
     height: 100% !important;
     box-sizing: border-box !important;
   }
+
+  /* Hide the scroll-progress dots (not needed for swipe UX) */
   .solutions-dots {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    margin-top: 24px !important;
-    list-style: none !important;
-    padding: 0 !important;
-  }
-  .dot {
-    width: 6px !important;
-    height: 6px !important;
-    border-radius: 50% !important;
-    background: rgba(26, 60, 46, 0.15) !important;
-    transition: width 0.3s ease, background 0.3s ease !important;
-  }
-  .dot.active {
-    width: 20px !important;
-    border-radius: 99px !important;
-    background: var(--clr-amber, #F5A623) !important;
+    display: none !important;
   }
 }
 
@@ -4230,6 +4227,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-bottom: 20px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

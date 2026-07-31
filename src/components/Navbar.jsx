@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const services = [
   { label: 'On-Grid Solar', href: '/services#on-grid' },
@@ -61,6 +62,9 @@ export default function Navbar() {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
   const isSolid = scrolled || !isHomePage
+  const isMobile = useIsMobile(900)
+  // On mobile the navbar is always white, so bars must always be dark
+  const hamburgerBarColor = isMobile ? 'var(--clr-dark)' : (isSolid ? 'var(--clr-dark)' : '#ffffff')
 
   const servicesDropdownRef = useRef(null)
   const aboutDropdownRef = useRef(null)
@@ -287,9 +291,9 @@ export default function Navbar() {
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
             >
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerBarColor }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerBarColor }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerBarColor }}></span>
             </button>
           </div>
         </div>

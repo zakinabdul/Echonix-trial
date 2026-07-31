@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const cards = [
@@ -107,30 +106,15 @@ function ServiceCard({ card }) {
 }
 
 function MobileServices() {
-  const outerWrapperRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: outerWrapperRef,
-    offset: ['start start', 'end end'],
-  })
-
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const totalCards = cards.length
-    const index = Math.min(totalCards - 1, Math.floor(latest * totalCards))
-    setActiveIndex(index)
-  })
-
   return (
     <section
-      ref={outerWrapperRef}
       className="services solutions-section"
       id="services"
       aria-labelledby="services-heading"
     >
       <div className="solutions-sticky-container">
-        <div className="services__inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-          
+        <div className="services__inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+
           <div className="section-header" style={{ textAlign: 'center', marginBottom: '32px' }}>
             <p className="section-eyebrow">SOLAR SOLUTIONS</p>
             <h2 className="section-title" id="services-heading">Our Solar Solutions</h2>
@@ -140,40 +124,22 @@ function MobileServices() {
           </div>
 
           <div className="solutions-cards-track">
-            {cards.map((card, i) => {
-              let stateClass = ''
-              if (i === activeIndex) {
-                stateClass = 'is-active'
-              } else if (i < activeIndex) {
-                stateClass = 'is-exiting'
-              }
-              return (
-                <div
-                  key={card.id}
-                  className={`solution-card ${stateClass}`}
-                  data-index={i}
-                >
-                  <ServiceCard card={card} />
-                </div>
-              )
-            })}
-          </div>
-
-          <ul className="solutions-dots">
-            {cards.map((_, i) => (
-              <li
-                key={i}
-                className={`dot ${i === activeIndex ? 'active' : ''}`}
-                data-target={i}
-              />
+            {cards.map((card) => (
+              <div
+                key={card.id}
+                className="solution-card"
+              >
+                <ServiceCard card={card} />
+              </div>
             ))}
-          </ul>
+          </div>
 
         </div>
       </div>
     </section>
   )
 }
+
 
 export default function Services() {
   const isMobile = useIsMobile()
