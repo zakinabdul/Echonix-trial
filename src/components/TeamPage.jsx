@@ -7,7 +7,7 @@ export default function TeamPage() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: '80px' }}>
+      <main className="team-page-main">
         <Team />
       </main>
       <Footer />

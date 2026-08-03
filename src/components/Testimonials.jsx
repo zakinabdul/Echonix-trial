@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const testimonials = [
   {
@@ -10,7 +11,7 @@ const testimonials = [
     location: 'Malappuram, Kerala',
     avatar: 'A',
     label: 'Customer Testimonial · Malappuram',
-    videoId: 'dQw4w9WgXcQ', // Featured video testimonial
+    videoId: 'dQw4w9WgXcQ',
     delay: 0,
   },
   {
@@ -19,7 +20,6 @@ const testimonials = [
     name: 'Mohammed Shafi',
     location: 'Tirur, Malappuram',
     avatar: 'M',
-    label: 'Customer Testimonial · Tirur',
     delay: 0.1,
   },
   {
@@ -28,7 +28,6 @@ const testimonials = [
     name: 'Dr. Anjali Nair',
     location: 'Kozhikode, Kerala',
     avatar: 'A',
-    label: 'Customer Testimonial · Kozhikode',
     delay: 0.2,
   },
   {
@@ -37,56 +36,49 @@ const testimonials = [
     name: 'K. Raghavan',
     location: 'Ernakulam, Kerala',
     avatar: 'R',
-    label: 'Customer Testimonial · Ernakulam',
     delay: 0.3,
-  }
+  },
 ]
 
-function TestiCard({ card }) {
+function VideoCard({ card }) {
   const [playing, setPlaying] = useState(false)
-  const hasVideo = !!card.videoId
-
   return (
     <motion.div
-      className={`testi-card ${hasVideo ? 'testi-card--video' : 'testi-card--text'}`}
+      className="testi-card testi-card--video"
       id={card.id}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOnce}
-      transition={{ delay: card.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      {hasVideo && (
-        <div className="testi-card__video">
-          <div className="testi-card__video-inner">
-            {playing ? (
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${card.videoId}?autoplay=1`}
-                title={card.label}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                style={{ border: 0, display: 'block', height: '100%', width: '100%' }}
-              />
-            ) : (
-              <div
-                className="testi-card__thumb"
-                role="button"
-                tabIndex={0}
-                aria-label="Play customer testimonial video"
-                onClick={() => setPlaying(true)}
-                onKeyDown={(e) => e.key === 'Enter' && setPlaying(true)}
-              >
-                <button className="play-btn" aria-label="Play video" tabIndex={-1}>
-                  <span className="play-btn__icon" aria-hidden="true"></span>
-                </button>
-                <span className="testi-card__thumb-label">{card.label}</span>
-              </div>
-            )}
-          </div>
+      <div className="testi-card__video">
+        <div className="testi-card__video-inner">
+          {playing ? (
+            <iframe
+              width="100%" height="100%"
+              src={`https://www.youtube.com/embed/${card.videoId}?autoplay=1`}
+              title={card.label}
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{ border: 0, display: 'block', height: '100%', width: '100%' }}
+            />
+          ) : (
+            <div
+              className="testi-card__thumb"
+              role="button" tabIndex={0}
+              aria-label="Play customer testimonial video"
+              onClick={() => setPlaying(true)}
+              onKeyDown={(e) => e.key === 'Enter' && setPlaying(true)}
+            >
+              <button className="play-btn" aria-label="Play video" tabIndex={-1}>
+                <span className="play-btn__icon" aria-hidden="true"></span>
+              </button>
+              <span className="testi-card__thumb-label">{card.label}</span>
+            </div>
+          )}
         </div>
-      )}
+      </div>
       <div className="testi-card__text">
         <div className="testi-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
         <blockquote className="testi-card__quote">{card.quote}</blockquote>
@@ -107,9 +99,33 @@ function TestiCard({ card }) {
   )
 }
 
+function TextCard({ card }) {
+  return (
+    <div className="testi-card testi-card--text" id={card.id}>
+      <div className="testi-card__text">
+        <div className="testi-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote className="testi-card__quote">{card.quote}</blockquote>
+        <div className="testi-card__customer">
+          <div className="testi-card__avatar" aria-hidden="true">{card.avatar}</div>
+          <div>
+            <p className="testi-card__name">{card.name}</p>
+            <p className="testi-card__location">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M6 1C4.07 1 2.5 2.57 2.5 4.5c0 2.97 3.5 6.5 3.5 6.5s3.5-3.53 3.5-6.5C9.5 2.57 7.93 1 6 1Zm0 4.75a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5Z" fill="currentColor"/>
+              </svg>
+              {card.location}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Testimonials() {
-  const videoReview = testimonials.find(t => t.videoId)
-  const textReviews = testimonials.filter(t => !t.videoId)
+  const isMobile = useIsMobile()
+  const videoReview = testimonials.find((t) => t.videoId)
+  const textReviews = testimonials.filter((t) => !t.videoId)
 
   return (
     <section className="testimonials" id="reviews" aria-labelledby="testi-heading">
@@ -122,23 +138,47 @@ export default function Testimonials() {
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.p className="section-eyebrow" variants={fadeUp}>Customer Stories</motion.p>
-          <motion.h2 className="section-title" id="testi-heading" variants={fadeUp}>Hear From Our Customers</motion.h2>
-          <motion.p className="section-subtitle" variants={fadeUp}>Real homeowners and businesses sharing their solar journey.</motion.p>
+          <motion.h2 className="section-title" id="testi-heading" variants={fadeUp}>
+            Hear From Our Customers
+          </motion.h2>
+          <motion.p className="section-subtitle" variants={fadeUp}>
+            Real homeowners and businesses sharing their solar journey.
+          </motion.p>
         </motion.div>
 
-        {/* Featured Video Card */}
-        {videoReview && (
-          <div className="testimonials__featured">
-            <TestiCard card={videoReview} />
+        {isMobile ? (
+          /* ── Mobile: all cards in one horizontal snap carousel ── */
+          <div className="testi__carousel" role="list" aria-label="Customer testimonials">
+            {testimonials.map((card) => (
+              <div key={card.id} className="testi__carousel-item" role="listitem">
+                <TextCard card={card} />
+              </div>
+            ))}
+            <div className="testi__carousel-spacer" aria-hidden="true" />
           </div>
+        ) : (
+          /* ── Desktop: featured video + 3-col text grid ── */
+          <>
+            {videoReview && (
+              <div className="testimonials__featured">
+                <VideoCard card={videoReview} />
+              </div>
+            )}
+            <div className="testimonials__text-grid">
+              {textReviews.map((card) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={{ delay: card.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <TextCard card={card} />
+                </motion.div>
+              ))}
+            </div>
+          </>
         )}
-
-        {/* Sub-grid of Text-only Cards */}
-        <div className="testimonials__text-grid">
-          {textReviews.map((card) => (
-            <TestiCard key={card.id} card={card} />
-          ))}
-        </div>
       </div>
     </section>
   )

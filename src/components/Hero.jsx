@@ -125,14 +125,14 @@ function MobileHero() {
           transition={{ delay: 0.3, duration: 0.5, ease }}
           style={{
             color: '#F5A623',
-            fontSize: 12, // minimum 12px small labels
-            fontWeight: 600,
-            letterSpacing: '2px',
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: '2.5px',
             textTransform: 'uppercase',
             margin: 0,
           }}
         >
-          Kerala's Trusted Solar Energy Experts
+          MNRE Empanelled · Mahindra Solarize Partner
         </motion.p>
 
         {/* H1 */}
@@ -142,15 +142,15 @@ function MobileHero() {
           transition={{ delay: 0.5, duration: 0.6, ease }}
           style={{
             color: '#fff',
-            fontSize: 32, // 36px max, using 32px to guarantee fit above fold
+            fontSize: 'clamp(26px, 8vw, 36px)',
             fontWeight: 800,
-            lineHeight: 1.15,
-            marginTop: 12,
+            lineHeight: 1.12,
+            marginTop: 10,
             marginBottom: 0,
             fontFamily: 'var(--font-display)',
           }}
         >
-          Kerala's Trusted Solar Energy Experts
+          Kerala's Trusted<br />Solar Energy Experts
         </motion.h1>
 
         {/* Subtext */}
@@ -159,15 +159,16 @@ function MobileHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.5, ease }}
           style={{
-            color: 'rgba(255,255,255,0.75)',
-            fontSize: 15,
+            color: 'rgba(255,255,255,0.78)',
+            fontSize: 14,
             lineHeight: 1.6,
-            marginTop: 12,
+            marginTop: 10,
             marginBottom: 0,
-            fontFamily: 'var(--font-body)'
+            fontFamily: 'var(--font-body)',
+            maxWidth: '90%',
           }}
         >
-          Solar installation with up to ₹78,000 government subsidy.
+          Up to <strong style={{ color: '#fff' }}>₹78,000 government subsidy</strong>. Free site survey included.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -177,8 +178,8 @@ function MobileHero() {
           transition={{ delay: 0.8, duration: 0.5, ease }}
           style={{
             display: 'flex',
-            gap: 12,
-            marginTop: 24,
+            gap: 10,
+            marginTop: 20,
           }}
         >
           <a
@@ -192,9 +193,11 @@ function MobileHero() {
               background: '#F5A623',
               color: '#1A3C2E',
               fontWeight: 700,
-              fontSize: 16, // button text min 16px on mobile
+              fontSize: 15,
               borderRadius: 99,
               textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              minWidth: 0,
             }}
           >
             Get Free Quote
@@ -210,13 +213,15 @@ function MobileHero() {
               background: 'transparent',
               color: '#fff',
               fontWeight: 500,
-              fontSize: 16, // button text min 16px on mobile
+              fontSize: 15,
               borderRadius: 99,
               textDecoration: 'none',
-              border: '1.5px solid rgba(255,255,255,0.7)',
+              border: '1.5px solid rgba(255,255,255,0.6)',
+              whiteSpace: 'nowrap',
+              minWidth: 0,
             }}
           >
-            View Our Work
+            View Work
           </a>
         </motion.div>
 
@@ -227,19 +232,19 @@ function MobileHero() {
           transition={{ delay: 1.0, duration: 0.4 }}
           style={{
             display: 'flex',
-            gap: 12, // 12px gap
+            gap: 16,
             justifyContent: 'center',
-            flexWrap: 'nowrap', // keep on one line
-            marginTop: 18,
+            flexWrap: 'wrap',
+            marginTop: 16,
           }}
         >
           {['✓ Free Survey', '✓ MNRE Certified', '✓ Since 1985'].map((text) => (
             <span
               key={text}
               style={{
-                color: 'rgba(255,255,255,0.85)', // contrast boost to 85%
-                fontSize: 11, // 11px font size to fit on one line
-                whiteSpace: 'nowrap'
+                color: 'rgba(255,255,255,0.82)',
+                fontSize: 12,
+                fontWeight: 500,
               }}
             >
               {text}
@@ -299,9 +304,9 @@ function DesktopHero() {
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } } }}
         >
-          <motion.p className="hero__eyebrow" variants={fadeUp}>Kerala's Trusted Solar Energy Experts</motion.p>
+          <motion.p className="hero__eyebrow" variants={fadeUp}>MNRE Empanelled · Mahindra Solarize Partner</motion.p>
           <motion.h1 className="hero__headline" variants={fadeUp}>
-            Kerala's Trusted Solar Energy Experts
+            Kerala's Trusted<br />Solar Energy Experts
           </motion.h1>
           <motion.p className="hero__subheadline" variants={fadeUp}>
             Up to <strong>₹78,000 government subsidy</strong>. MNRE empanelled &amp; Mahindra Solarize partner.

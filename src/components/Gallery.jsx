@@ -1,15 +1,45 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
+import { useIsMobile } from '../hooks/useIsMobile'
 import projects from '../data/projects'
 
-// Show only featured projects on the home page (e.g. 3-6, matching the grid layout)
 const homeProjects = projects.filter((p) => p.featured).slice(0, 6).map((p, i) => ({
   ...p,
   delay: [0, 0.1, 0.2, 0, 0.1, 0.2][i] ?? 0,
 }))
 
+function GalleryCard({ p, lazy = true }) {
+  return (
+    <article className="gallery-card" role="listitem" id={p.id}>
+      <div className="gallery-card__img-wrap">
+        <img
+          src={p.img || p.image}
+          alt={p.alt}
+          className="gallery-card__img"
+          loading={lazy ? 'lazy' : 'eager'}
+          decoding="async"
+          width="600"
+          height="420"
+        />
+      </div>
+      <div className="gallery-card__overlay">
+        <div className="gallery-card__info">
+          <h3 className="gallery-card__name">{p.name}</h3>
+          <div className="gallery-card__meta-row">
+            {p.kw && <span className="gallery-card__kw">{p.kw}</span>}
+            {p.kw && p.location && <span className="gallery-card__divider">·</span>}
+            {p.location && <span className="gallery-card__location">{p.location}</span>}
+          </div>
+        </div>
+      </div>
+    </article>
+  )
+}
+
 export default function Gallery() {
+  const isMobile = useIsMobile()
+
   return (
     <section className="gallery" id="projects" aria-labelledby="gallery-heading">
       <div className="gallery__inner">
@@ -21,38 +51,40 @@ export default function Gallery() {
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.p className="section-eyebrow" variants={fadeUp}>Our Portfolio</motion.p>
-          <motion.h2 className="section-title" id="gallery-heading" variants={fadeUp}>Our Work Across Kerala</motion.h2>
-          <motion.p className="section-subtitle" variants={fadeUp}>Real installations. Real results. From homes to institutions.</motion.p>
+          <motion.h2 className="section-title" id="gallery-heading" variants={fadeUp}>
+            Our Work Across Kerala
+          </motion.h2>
+          <motion.p className="section-subtitle" variants={fadeUp}>
+            Real installations. Real results. From homes to institutions.
+          </motion.p>
         </motion.div>
 
-        <div className="gallery__grid" role="list">
-          {homeProjects.map((p) => (
-            <motion.article
-              key={p.id}
-              className="gallery-card"
-              role="listitem"
-              id={p.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportOnce}
-              transition={{ delay: p.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="gallery-card__img-wrap">
-                <img src={p.img || p.image} alt={p.alt} className="gallery-card__img" loading="lazy" decoding="async" width="600" height="420" />
+        {isMobile ? (
+          /* ── Mobile: horizontal snap carousel ── */
+          <div className="gallery__carousel" role="list" aria-label="Project photos">
+            {homeProjects.map((p) => (
+              <div key={p.id} className="gallery__carousel-item" role="listitem">
+                <GalleryCard p={p} />
               </div>
-              <div className="gallery-card__overlay">
-                <div className="gallery-card__info">
-                  <h3 className="gallery-card__name">{p.name}</h3>
-                  <div className="gallery-card__meta-row">
-                    {p.kw && <span className="gallery-card__kw">{p.kw}</span>}
-                    {p.kw && p.location && <span className="gallery-card__divider">·</span>}
-                    {p.location && <span className="gallery-card__location">{p.location}</span>}
-                  </div>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+            ))}
+            <div className="gallery__carousel-spacer" aria-hidden="true" />
+          </div>
+        ) : (
+          /* ── Desktop: 3-col grid ── */
+          <div className="gallery__grid" role="list">
+            {homeProjects.map((p) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ delay: p.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <GalleryCard p={p} />
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <motion.div
           className="gallery__cta"

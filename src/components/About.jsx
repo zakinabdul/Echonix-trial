@@ -54,13 +54,23 @@ export default function About() {
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
-                style={{ border: 0, display: 'block', width: '100%', height: '100%', aspectRatio: '900/700' }}
+                style={{ border: 0, display: 'block', width: '100%', height: '100%' }}
               />
             ) : (
-              <div 
+              <button
                 className="about__video-trigger"
                 onClick={() => setPlaying(true)}
-                style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}
+                aria-label="Play Echonix corporate video"
+                style={{ 
+                  position: 'relative', 
+                  width: '100%', 
+                  height: '100%', 
+                  cursor: 'pointer',
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  display: 'block',
+                }}
               >
                 <img
                   src="/about-team.png"
@@ -73,16 +83,9 @@ export default function About() {
                 />
                 
                 {/* Play Button Overlay */}
-                <div className="about__play-overlay" style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(0,0,0,0.2)'
-                }}>
-                  <div className="play-btn" aria-label="Play video">
-                    <span className="play-btn__icon" aria-hidden="true"></span>
+                <div className="about__play-overlay">
+                  <div className="play-btn" aria-hidden="true">
+                    <span className="play-btn__icon"></span>
                   </div>
                 </div>
 
@@ -90,11 +93,11 @@ export default function About() {
                   <span className="corner-tag__line">Est.</span>
                   <span className="corner-tag__year">1985</span>
                 </div>
-                <div className="about__exp-badge">
+                <div className="about__exp-badge" aria-hidden="true">
                   <span className="exp-badge__num">40<sup>+</sup></span>
                   <span className="exp-badge__label">Years of<br />Expertise</span>
                 </div>
-              </div>
+              </button>
             )}
           </div>
         </motion.div>

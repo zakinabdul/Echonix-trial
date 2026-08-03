@@ -36,7 +36,8 @@ export default function Footer() {
             <div className="footer__contact-info">
               <p className="contact-line">
                 <span className="label">Phone:</span>
-                <a href="tel:+919072551144" className="footer__link">+91 9072 55 11 44</a> |{' '}
+                <a href="tel:+919072551144" className="footer__link">+91 9072 55 11 44</a>
+                <span className="footer__link-sep" aria-hidden="true">·</span>
                 <a href="tel:+919633059966" className="footer__link">+91 9633 05 99 66</a>
               </p>
               <p className="contact-line">
