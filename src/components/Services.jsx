@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const cards = [
@@ -106,70 +106,91 @@ function ServiceCard({ card }) {
   )
 }
 
+// ── Sticky stacking card — faithful Skiper16 port ──────────
+// range=[i*0.25, 1], targetScale from original formula, top offset from original
+function StickyServiceCard({ card, i, progress }) {
+  const targetScale = Math.max(0.5, 1 - (cards.length - i - 1) * 0.1)
+  const scale = useTransform(progress, [i * 0.25, 1], [1, targetScale])
+
+  return (
+    <div
+      style={{
+        position: 'sticky',
+        top: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+      }}
+    >
+      <motion.div
+        style={{
+          scale,
+          top: `calc(-5vh + ${i * 20 + 250}px)`,
+          position: 'relative',
+          width: '88vw',
+          maxWidth: 380,
+          transformOrigin: 'top center',
+          borderRadius: 20,
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+        }}
+      >
+        <ServiceCard card={card} />
+      </motion.div>
+    </div>
+  )
+}
+
 function MobileServices() {
-  const outerWrapperRef = useRef(null)
+  const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({
-    target: outerWrapperRef,
+    target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const totalCards = cards.length
-    const index = Math.min(totalCards - 1, Math.floor(latest * totalCards))
-    setActiveIndex(index)
-  })
-
   return (
-    <section
-      ref={outerWrapperRef}
-      className="services solutions-section"
-      id="services"
-      aria-labelledby="services-heading"
-    >
-      <div className="solutions-sticky-container">
-        <div className="services__inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-          
-          <div className="section-header" style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <p className="section-eyebrow">SOLAR SOLUTIONS</p>
-            <h2 className="section-title" id="services-heading">Our Solar Solutions</h2>
-            <p className="section-subtitle">
-              From grid-connected systems to complete energy independence — find the right solar solution for your home or business.
-            </p>
-          </div>
+    <section id="services" aria-labelledby="services-heading">
+      {/* Section header — normal flow above the sticky scroll area */}
+      <div
+        style={{
+          background: '#F8F6F1',
+          paddingTop: 64,
+          paddingBottom: 32,
+          textAlign: 'center',
+          paddingLeft: 24,
+          paddingRight: 24,
+        }}
+      >
+        <p className="section-eyebrow">SOLAR SOLUTIONS</p>
+        <h2 className="section-title" id="services-heading">Our Solar Solutions</h2>
+        <p className="section-subtitle" style={{ maxWidth: 320, margin: '0 auto' }}>
+          From grid-connected systems to complete energy independence.
+        </p>
+      </div>
 
-          <div className="solutions-cards-track">
-            {cards.map((card, i) => {
-              let stateClass = ''
-              if (i === activeIndex) {
-                stateClass = 'is-active'
-              } else if (i < activeIndex) {
-                stateClass = 'is-exiting'
-              }
-              return (
-                <div
-                  key={card.id}
-                  className={`solution-card ${stateClass}`}
-                  data-index={i}
-                >
-                  <ServiceCard card={card} />
-                </div>
-              )
-            })}
-          </div>
-
-          <ul className="solutions-dots">
-            {cards.map((_, i) => (
-              <li
-                key={i}
-                className={`dot ${i === activeIndex ? 'active' : ''}`}
-                data-target={i}
-              />
-            ))}
-          </ul>
-
-        </div>
+      {/* Sticky scroll container — matches Skiper16's relative flex col + pb-[100vh] pt-[50vh] */}
+      <div
+        ref={containerRef}
+        style={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: '50vh',
+          paddingBottom: '100vh',
+          background: '#F8F6F1',
+        }}
+      >
+        {cards.map((card, i) => (
+          <StickyServiceCard
+            key={card.id}
+            card={card}
+            i={i}
+            progress={scrollYProgress}
+          />
+        ))}
       </div>
     </section>
   )

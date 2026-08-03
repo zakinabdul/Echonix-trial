@@ -34,9 +34,7 @@ function HomePage() {
           <TrustBar />
         </SectionReveal>
 
-        <SectionReveal delay={0}>
-          <Services />
-        </SectionReveal>
+        <Services />
 
         <SectionReveal delay={0}>
           <About />
