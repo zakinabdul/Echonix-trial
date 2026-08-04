@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const steps = [
   {
@@ -55,7 +56,20 @@ const steps = [
   },
 ]
 
+function StepCard({ step }) {
+  return (
+    <div className="hiw__step-card">
+      <span className="hiw__step-num" aria-hidden="true">{step.num}</span>
+      <div className="hiw__icon-circle" aria-hidden="true">{step.icon}</div>
+      <h3 className="hiw__step-title">{step.title}</h3>
+      <p className="hiw__step-desc">{step.desc}</p>
+    </div>
+  )
+}
+
 export default function HowItWorks() {
+  const isMobile = useIsMobile()
+
   return (
     <section className="hiw" id="how-it-works" aria-labelledby="hiw-heading">
       <div className="hiw__inner">
@@ -67,30 +81,45 @@ export default function HowItWorks() {
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.p className="section-eyebrow" variants={fadeUp}>Our Process</motion.p>
-          <motion.h2 className="section-title" id="hiw-heading" variants={fadeUp}>How We Install Your Solar System</motion.h2>
+          <motion.h2 className="section-title" id="hiw-heading" variants={fadeUp}>
+            How We Install Your Solar System
+          </motion.h2>
         </motion.div>
 
-        <div className="hiw__steps" id="hiw-steps">
-          <svg className="hiw__svg-connector" id="hiw-connector" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true">
-            <line className="hiw__dash-line" x1="0" y1="1" x2="1000" y2="1"/>
-          </svg>
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.id}
-              className="hiw__step"
-              id={step.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportOnce}
-              transition={{ delay: i * 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="hiw__step-num" aria-hidden="true">{step.num}</span>
-              <div className="hiw__icon-circle" aria-hidden="true">{step.icon}</div>
-              <h3 className="hiw__step-title">{step.title}</h3>
-              <p className="hiw__step-desc">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+        {isMobile ? (
+          /* ── Mobile: horizontal snap carousel ── */
+          <div className="hiw__carousel" role="list" aria-label="Installation steps">
+            {steps.map((step) => (
+              <div key={step.id} className="hiw__carousel-item" role="listitem" id={step.id}>
+                <StepCard step={step} />
+              </div>
+            ))}
+            <div className="hiw__carousel-spacer" aria-hidden="true" />
+          </div>
+        ) : (
+          /* ── Desktop: 4-col grid with connector line ── */
+          <div className="hiw__steps" id="hiw-steps">
+            <svg className="hiw__svg-connector" id="hiw-connector" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true">
+              <line className="hiw__dash-line" x1="0" y1="1" x2="1000" y2="1"/>
+            </svg>
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.id}
+                className="hiw__step"
+                id={step.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ delay: i * 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="hiw__step-num" aria-hidden="true">{step.num}</span>
+                <div className="hiw__icon-circle" aria-hidden="true">{step.icon}</div>
+                <h3 className="hiw__step-title">{step.title}</h3>
+                <p className="hiw__step-desc">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

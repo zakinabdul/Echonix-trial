@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const services = [
   { label: 'On-Grid Solar', href: '/services#on-grid' },
@@ -11,7 +12,7 @@ const services = [
 
 const aboutLinks = [
   { label: 'Who We Are', href: '/#about' },
-  { label: 'Our Team', href: '/#team' },
+  { label: 'Our Team', href: '/team' },
 ]
 
 // Desktop dropdown variants
@@ -61,6 +62,10 @@ export default function Navbar() {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
   const isSolid = scrolled || !isHomePage
+  const isMobile = useIsMobile()
+
+  // On mobile, navbar is always glass-white, so hamburger bars are always dark
+  const hamburgerColor = isMobile ? 'var(--clr-dark)' : (isSolid ? 'var(--clr-dark)' : '#ffffff')
 
   const servicesDropdownRef = useRef(null)
   const aboutDropdownRef = useRef(null)
@@ -188,26 +193,46 @@ export default function Navbar() {
                       exit="exit"
                     >
                       {aboutLinks.map((a, i) => (
-                        <a 
-                          key={i} 
-                          href={a.href} 
-                          className="dropdown-item" 
-                          role="menuitem" 
-                          onClick={(e) => {
-                            setAboutDropdownOpen(false)
-                            handleAnchorClick(e, a.href)
-                          }}
-                        >
-                          <span className="dropdown-item__icon" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                              <circle cx="10" cy="8" r="3" stroke="#F5A623" strokeWidth="1.6" fill="none"/>
-                              <path d="M4 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#F5A623" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
-                            </svg>
-                          </span>
-                          <div>
-                            <strong>{a.label}</strong>
-                          </div>
-                        </a>
+                        a.href.startsWith('/#') ? (
+                          <a 
+                            key={i} 
+                            href={a.href} 
+                            className="dropdown-item" 
+                            role="menuitem" 
+                            onClick={(e) => {
+                              setAboutDropdownOpen(false)
+                              handleAnchorClick(e, a.href)
+                            }}
+                          >
+                            <span className="dropdown-item__icon" aria-hidden="true">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="8" r="3" stroke="#F5A623" strokeWidth="1.6" fill="none"/>
+                                <path d="M4 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#F5A623" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
+                              </svg>
+                            </span>
+                            <div>
+                              <strong>{a.label}</strong>
+                            </div>
+                          </a>
+                        ) : (
+                          <Link
+                            key={i}
+                            to={a.href}
+                            className="dropdown-item"
+                            role="menuitem"
+                            onClick={() => setAboutDropdownOpen(false)}
+                          >
+                            <span className="dropdown-item__icon" aria-hidden="true">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="8" r="3" stroke="#F5A623" strokeWidth="1.6" fill="none"/>
+                                <path d="M4 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#F5A623" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
+                              </svg>
+                            </span>
+                            <div>
+                              <strong>{a.label}</strong>
+                            </div>
+                          </Link>
+                        )
                       ))}
                     </motion.div>
                   )}
@@ -287,9 +312,9 @@ export default function Navbar() {
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
             >
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
-              <span className="hamburger__bar" style={{ backgroundColor: isSolid ? 'var(--clr-dark)' : '#ffffff' }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerColor }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerColor }}></span>
+              <span className="hamburger__bar" style={{ backgroundColor: hamburgerColor }}></span>
             </button>
           </div>
         </div>
@@ -431,22 +456,38 @@ export default function Navbar() {
                     >
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 4 }}>
                         {aboutLinks.map((a) => (
-                          <a
-                            key={a.label}
-                            href={a.href}
-                            onClick={(e) => {
-                              closeMenu()
-                              handleAnchorClick(e, a.href)
-                            }}
-                            style={{
-                              fontSize: 18,
-                              color: 'rgba(255,255,255,0.70)',
-                              textDecoration: 'none',
-                              fontWeight: 400,
-                            }}
-                          >
-                            {a.label}
-                          </a>
+                          a.href.startsWith('/#') ? (
+                            <a
+                              key={a.label}
+                              href={a.href}
+                              onClick={(e) => {
+                                closeMenu()
+                                handleAnchorClick(e, a.href)
+                              }}
+                              style={{
+                                fontSize: 18,
+                                color: 'rgba(255,255,255,0.70)',
+                                textDecoration: 'none',
+                                fontWeight: 400,
+                              }}
+                            >
+                              {a.label}
+                            </a>
+                          ) : (
+                            <Link
+                              key={a.label}
+                              to={a.href}
+                              onClick={closeMenu}
+                              style={{
+                                fontSize: 18,
+                                color: 'rgba(255,255,255,0.70)',
+                                textDecoration: 'none',
+                                fontWeight: 400,
+                              }}
+                            >
+                              {a.label}
+                            </Link>
+                          )
                         ))}
                       </div>
                     </motion.div>
