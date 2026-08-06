@@ -61,8 +61,10 @@ export default function Navbar() {
 
   const location = useLocation()
   const isHomePage = location.pathname === '/'
-  const isSolid = scrolled || !isHomePage
   const isMobile = useIsMobile()
+  // Make desktop show the solid/boxed navbar by default.
+  // On mobile keep existing behavior (solid when scrolled or off-homepage).
+  const isSolid = !isMobile || scrolled || !isHomePage
 
   // On mobile, navbar is always glass-white, so hamburger bars are always dark
   const hamburgerColor = isMobile ? 'var(--clr-dark)' : (isSolid ? 'var(--clr-dark)' : '#ffffff')

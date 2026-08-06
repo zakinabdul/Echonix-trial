@@ -1,5 +1,50 @@
 import { motion } from 'framer-motion'
 import { viewportOnce } from '../hooks/animations'
+import { useRef, useEffect } from 'react'
+
+function easeOutQuart(t) {
+  return 1 - Math.pow(1 - t, 4)
+}
+
+function CountUpInline({ count, suffix = '', isDecimal = false }) {
+  const elRef = useRef(null)
+  const startedRef = useRef(false)
+
+  useEffect(() => {
+    const node = elRef.current
+    if (!node || typeof IntersectionObserver === 'undefined') return
+
+    const duration = 1400
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !startedRef.current) {
+          startedRef.current = true
+          const start = performance.now()
+          const raf = (now) => {
+            const elapsed = now - start
+            const progress = Math.min(elapsed / duration, 1)
+            const eased = easeOutQuart(progress)
+            const value = eased * count
+            node.textContent = isDecimal ? value.toFixed(1) + suffix : Math.round(value) + suffix
+            if (progress < 1) requestAnimationFrame(raf)
+            else node.textContent = (isDecimal ? count.toFixed(1) : count) + suffix
+          }
+          requestAnimationFrame(raf)
+        }
+      },
+      { threshold: 0.4 }
+    )
+
+    obs.observe(node)
+    return () => obs.disconnect()
+  }, [count, suffix, isDecimal])
+
+  return (
+    <span className="partners__num" ref={elRef} aria-label={`${count}${suffix}`}>
+      0
+    </span>
+  )
+}
 
 // Using SVG logos for partner brands
 const logos = [
@@ -110,6 +155,26 @@ export default function Partners() {
         >
           Brands We Work With
         </motion.p>
+
+        {/* ── Optional stats to draw attention above the marquees */}
+        <motion.div
+          className="partners__stats"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5, delay: 0.05 }}
+        >
+          {[
+            { value: 40, label: 'Years in Business', suffix: '+' },
+            { value: 500, label: 'Installations Done', suffix: '+' },
+            { value: 3.5, label: 'Solar Energy (MW)', suffix: '+ MW', isDecimal: true },
+          ].map((s, i) => (
+            <div className="partners__stat" key={i}>
+              <CountUpInline count={s.value} suffix={s.suffix} isDecimal={s.isDecimal} />
+              <div className="partners__stat-label">{s.label}</div>
+            </div>
+          ))}
+        </motion.div>
 
         <div className="partners__marquee-wrap" aria-label="Scrolling list of partner brands">
           <div className="partners__track" id="partners-track">
