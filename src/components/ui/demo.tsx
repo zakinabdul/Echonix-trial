@@ -1,32 +1,67 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const HERO_SLIDES = [
+  {
+    src: '/heroes/hero2.png',
+    alt: 'Kerala Solar Rooftop Installation - Echonix',
+  },
+  {
+    src: '/heroes/hero3.png',
+    alt: 'High Efficiency Solar Power Systems - Echonix',
+  },
+  {
+    src: '/heroes/heronew.png',
+    alt: 'Residential & Commercial Solar Solutions - Echonix',
+  },
+]
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [loaded, setLoaded] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
+  // Preload slide images for smooth zero-lag transition
   useEffect(() => {
-    const v = videoRef.current
-    if (!v) return
-    v.play().catch(() => {})
+    HERO_SLIDES.forEach((slide) => {
+      const img = new Image()
+      img.src = slide.src
+    })
   }, [])
+
+  // Auto transition every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length)
+  }
 
   return (
     <section className="hero2" aria-label="Hero">
-      {/* ── Video Background ── */}
+      {/* ── Photo Transition Background ── */}
       <div className="hero2__bg">
-        <video
-          ref={videoRef}
-          className="hero2__video"
-          src="/heronew.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onCanPlay={() => setLoaded(true)}
-          aria-hidden="true"
-        />
+        <AnimatePresence mode="popLayout">
+          <motion.img
+            key={currentIndex}
+            src={HERO_SLIDES[currentIndex].src}
+            alt={HERO_SLIDES[currentIndex].alt}
+            className="hero2__slide-img"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 6, ease: 'easeOut' },
+            }}
+          />
+        </AnimatePresence>
         {/* Dark gradient overlay */}
         <div className="hero2__overlay" />
       </div>
@@ -122,7 +157,47 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* ── Scroll hint (mobile only) ── */}
+      {/* ── Slideshow Controls ── */}
+      <div className="hero2__controls" aria-label="Slideshow controls">
+        <button
+          onClick={handlePrev}
+          className="hero2__nav-btn"
+          aria-label="Previous slide"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        <div className="hero2__dots">
+          {HERO_SLIDES.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`hero2__dot ${index === currentIndex ? 'hero2__dot--active' : ''}`}
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={handleNext}
+          className="hero2__nav-btn"
+          aria-label="Next slide"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      {/* ── Scroll hint (desktop) ── */}
+      <div className="hero2__scroll">
+        <span className="hero2__scroll-label">SCROLL</span>
+        <div className="hero2__scroll-line" />
+      </div>
+
+      {/* ── Scroll hint (mobile) ── */}
       <motion.div
         className="hero2__scroll-mobile"
         initial={{ opacity: 0 }}
@@ -136,3 +211,4 @@ export default function Hero() {
     </section>
   )
 }
+

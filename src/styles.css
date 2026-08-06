@@ -6778,14 +6778,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   overflow: hidden;
 }
 
-/* ── Background video layer ── */
+/* ── Background image layer ── */
 .hero2__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-.hero2__video {
+.hero2__slide-img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -6798,12 +6799,78 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero2__overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(
     105deg,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.48) 55%,
-    rgba(0, 0, 0, 0.22) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.52) 55%,
+    rgba(0, 0, 0, 0.28) 100%
   );
+}
+
+/* ── Slideshow Controls ── */
+.hero2__controls {
+  position: absolute;
+  bottom: 36px;
+  right: 64px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 6px 14px;
+  border-radius: 99px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hero2__nav-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.hero2__nav-btn:hover {
+  color: #F5A623;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero2__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero2__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.hero2__dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hero2__dot--active {
+  width: 24px;
+  background: #F5A623;
+  box-shadow: 0 0 10px rgba(245, 166, 35, 0.6);
 }
 
 /* ── Decorative column grid lines ── */
@@ -7049,6 +7116,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     left: 32px;
     bottom: 24px;
   }
+  .hero2__controls {
+    right: 32px;
+    bottom: 24px;
+  }
   .hero2__grid-lines {
     display: none;
   }
@@ -7057,6 +7128,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 600px) {
   .hero2__inner {
     padding: 90px 24px 72px;
+  }
+  .hero2__controls {
+    right: 20px;
+    bottom: 20px;
+    padding: 4px 10px;
   }
   .hero2__headline {
     font-size: clamp(2.2rem, 9vw, 3rem);
