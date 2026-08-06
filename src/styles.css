@@ -2732,6 +2732,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex;
   flex-direction: column;
   gap: 0;
+  margin-top: 76px;
 }
 
 /* ── FAQ Item ──── */
@@ -2836,6 +2837,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .faq__inner {
     grid-template-columns: 1fr;
     gap: 48px;
+  }
+
+  .faq__right {
+    margin-top: 0;
   }
   
   .faq__img-card {
