@@ -8,7 +8,11 @@ export default function FinalCTA() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (formData.name && formData.phone) setSubmitted(true)
+    if (formData.name && formData.phone) {
+      setSubmitted(true)
+      const msg = `Hi Echonix, I would like to get a free quote. Name: ${formData.name}, Phone: ${formData.phone}`
+      window.open(`https://wa.me/919539220888?text=${encodeURIComponent(msg)}`, '_blank')
+    }
   }
 
   return (
@@ -69,7 +73,7 @@ export default function FinalCTA() {
               ) : (
                 <>
                   <a
-                    href="https://wa.me/919072551144"
+                    href="https://wa.me/919539220888"
                     className="cta-card__wa-btn"
                     target="_blank"
                     rel="noopener noreferrer"

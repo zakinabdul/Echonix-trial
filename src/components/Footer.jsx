@@ -15,12 +15,12 @@ export default function Footer() {
   const serviceLinks = [
     { label: 'On-Grid Solar', href: isHomePage ? '#services' : '/#services' },
     { label: 'Off-Grid Solar', href: isHomePage ? '#services' : '/#services' },
-    { label: 'Hybrid Solar', href: isHomePage ? '#services' : '/#services' },
+    { label: 'Solar PMC', href: isHomePage ? '#services' : '/#services' },
     { label: 'Solar Inverter', href: isHomePage ? '#services' : '/#services' },
   ]
 
   const phoneLinks = [
-    { href: 'tel:+919072551144', label: '+91 9072 55 11 44' },
+    { href: 'tel:+919539220888', label: '+91 9539 22 08 88' },
     { href: 'tel:+919633059966', label: '+91 9633 05 99 66' },
   ]
 
@@ -29,7 +29,7 @@ export default function Footer() {
   const socialLinks = [
     {
       label: 'Instagram',
-      href: 'https://www.instagram.com/echonixtechnology',
+      href: 'https://www.instagram.com/echonixtechnology?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
       icon: (
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3.5" y="3.5" width="17" height="17" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="1.8" />
@@ -40,7 +40,7 @@ export default function Footer() {
     },
     {
       label: 'LinkedIn',
-      href: 'https://linkedin.com/company/echonix',
+      href: 'https://www.linkedin.com/company/echonix-technology-pvt-ltd/home/',
       icon: (
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6.6 9.1V18H4.1V9.1h2.5Zm.2-2.8c0 .7-.5 1.2-1.4 1.2h-.1c-.8 0-1.3-.5-1.3-1.2S4.5 5 5.4 5s1.4.5 1.4 1.3Zm8.9 6.3V18h-2.5v-4.7c0-1.2-.4-2-1.5-2-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.8V18H7.7V9.1h2.5v1.1c.3-.6 1-1.4 2.4-1.4 1.8 0 3.1 1.2 3.1 3.9Z" fill="currentColor" />
@@ -48,11 +48,11 @@ export default function Footer() {
       ),
     },
     {
-      label: 'WhatsApp',
-      href: 'https://wa.me/919072551144',
+      label: 'Facebook',
+      href: 'https://www.facebook.com/profile.php?id=100083322813630',
       icon: (
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M19.1 4.9A9.4 9.4 0 0 0 4.1 16l-1 4.1 4.3-1A9.4 9.4 0 1 0 19.1 4.9Zm-7.1 14.4c-1.3 0-2.6-.3-3.7-1l-.3-.2-2.5.6.7-2.4-.2-.4a7.2 7.2 0 1 1 6 3.4Zm4.1-5.5c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.1-.3.1-.5 0-.2-.1-.8-.3-1.5-.9-.5-.4-.9-1-1.1-1.2-.1-.2 0-.4.1-.5l.3-.4c.1-.1.1-.3.2-.4 0-.1 0-.3-.1-.4l-.7-1.7c-.2-.5-.5-.5-.6-.5h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.1.9 2.3c.1.2 1.7 2.7 4.1 3.7 2.4.9 2.4.6 2.8.6.4 0 1.3-.5 1.5-1 .2-.5.2-.9.1-1-.1-.1-.2-.2-.4-.3Z" fill="currentColor" />
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8Z" fill="currentColor" />
         </svg>
       ),
     },
@@ -141,15 +141,18 @@ export default function Footer() {
               <p className="contact-line contact-line--phone">
                 <span className="label">Phone:</span>
                 <span className="footer__contact-items" aria-label="Phone numbers">
-                  {phoneLinks.map((phoneLink) => (
-                    <a key={phoneLink.label} href={phoneLink.href} className="footer__contact-link footer__contact-link--phone">
-                      <span className="footer__contact-icon footer__contact-icon--phone" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.5 3.5h2.8c.7 0 1.3.4 1.6 1l1.3 3c.3.6.1 1.4-.4 1.9l-1.4 1.4c1 1.8 2.5 3.3 4.3 4.3l1.4-1.4c.5-.5 1.3-.7 1.9-.4l3 1.3c.6.3 1 .9 1 1.6v2.8c0 1-.8 1.8-1.8 1.8C11 21.5 2.5 13 2.5 5.3c0-1 .8-1.8 1.8-1.8h2.2Z" fill="currentColor" />
-                        </svg>
-                      </span>
-                      <span>{phoneLink.label}</span>
-                    </a>
+                  {phoneLinks.map((phoneLink, index) => (
+                    <span key={phoneLink.label} style={{ display: 'inline-flex', alignItems: 'center' }}>
+                      <a href={phoneLink.href} className="footer__contact-link footer__contact-link--phone">
+                        <span className="footer__contact-icon footer__contact-icon--phone" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 3.5h2.8c.7 0 1.3.4 1.6 1l1.3 3c.3.6.1 1.4-.4 1.9l-1.4 1.4c1 1.8 2.5 3.3 4.3 4.3l1.4-1.4c.5-.5 1.3-.7 1.9-.4l3 1.3c.6.3 1 .9 1 1.6v2.8c0 1-.8 1.8-1.8 1.8C11 21.5 2.5 13 2.5 5.3c0-1 .8-1.8 1.8-1.8h2.2Z" fill="currentColor" />
+                          </svg>
+                        </span>
+                        <span>{phoneLink.label}</span>
+                      </a>
+                      {index < phoneLinks.length - 1 && <span style={{ color: 'rgba(247, 246, 242, 0.7)', margin: '0 4px 0 1px' }}>,</span>}
+                    </span>
                   ))}
                 </span>
               </p>
@@ -198,9 +201,9 @@ export default function Footer() {
               ))}
             </div>
             <ul className="footer__links-list">
-              <li><a href="https://www.instagram.com/echonixtechnology" className="footer__link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="https://linkedin.com/company/echonix" className="footer__link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://wa.me/919072551144" className="footer__link" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href="https://www.instagram.com/echonixtechnology?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="footer__link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/echonix-technology-pvt-ltd/home/" className="footer__link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=100083322813630" className="footer__link" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             </ul>
           </div>
         </div>

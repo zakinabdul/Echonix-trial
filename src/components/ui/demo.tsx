@@ -78,7 +78,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <a href="#contact" className="hero2__btn hero2__btn--primary">
+            <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="hero2__btn hero2__btn--primary">
               Get Free Quote →
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="hero2__btn-arrow">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

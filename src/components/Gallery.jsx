@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
@@ -47,6 +48,60 @@ function GalleryCard({ p, index = 0 }) {
 }
 
 export default function Gallery() {
+  const gridRef = useRef(null)
+
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+
+    let intervalId
+    const startAutoScroll = () => {
+      const isMobile = window.innerWidth <= 600
+      if (!isMobile) return
+
+      intervalId = setInterval(() => {
+        if (!grid) return
+        const maxScroll = grid.scrollWidth - grid.clientWidth
+        if (grid.scrollLeft >= maxScroll - 5) {
+          grid.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          const scrollAmount = grid.clientWidth * 0.85 + 16
+          grid.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+        }
+      }, 3500)
+    }
+
+    startAutoScroll()
+
+    const handleResize = () => {
+      clearInterval(intervalId)
+      startAutoScroll()
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    const handleTouchStart = () => {
+      clearInterval(intervalId)
+    }
+
+    const handleTouchEnd = () => {
+      clearInterval(intervalId)
+      startAutoScroll()
+    }
+
+    grid.addEventListener('touchstart', handleTouchStart, { passive: true })
+    grid.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+    return () => {
+      clearInterval(intervalId)
+      window.removeEventListener('resize', handleResize)
+      if (grid) {
+        grid.removeEventListener('touchstart', handleTouchStart)
+        grid.removeEventListener('touchend', handleTouchEnd)
+      }
+    }
+  }, [])
+
   return (
     <section className="gal" id="projects" aria-labelledby="gal-heading">
       <div className="gal__inner">
@@ -69,7 +124,7 @@ export default function Gallery() {
         </motion.div>
 
         {/* Grid — 3-col desktop, 2-col tablet, 1-col swipe on mobile */}
-        <div className="gal__grid" role="list">
+        <div className="gal__grid" role="list" ref={gridRef}>
           {homeProjects.map((p, i) => (
             <div key={p.id} role="listitem" className="gal__grid-item">
               <GalleryCard p={p} index={i} />

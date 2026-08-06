@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const services = [
@@ -21,12 +21,12 @@ const services = [
     image: '/project-commercial.png',
   },
   {
-    id: 'hybrid',
+    id: 'pmc',
     num: '03',
-    title: 'Solar Battery & Energy Storage',
-    desc: 'The best of both worlds — grid-connected with battery backup. Enjoy zero bills and uninterrupted power even during outages. Ideal for areas with frequent load-shedding.',
-    tags: ['Battery Backup', 'Zero Downtime', 'Hybrid System'],
-    href: '/services#hybrid',
+    title: 'Solar PMC (Project Management Consultancy)',
+    desc: 'End-to-end management, supervision, and technical oversight for solar projects. We ensure quality assurance, timeline adherence, regulatory compliance, and seamless execution from site audit to grid integration.',
+    tags: ['Quality Assurance', 'Project Supervision', 'Vendor Management', 'Grid Integration'],
+    href: '/services#pmc',
     image: '/project-industrial.png',
   },
   {
@@ -41,7 +41,24 @@ const services = [
 ]
 
 export default function Services() {
+  const [isMobile, setIsMobile] = useState(false)
   const [activeId, setActiveId] = useState('on-grid')
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 860
+      setIsMobile(mobile)
+      if (mobile) {
+        setActiveId(null)
+      } else {
+        setActiveId(prev => prev || 'on-grid')
+      }
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const active = services.find((s) => s.id === activeId) || services[0]
 
   return (
@@ -71,7 +88,13 @@ export default function Services() {
                     className="svc2__item-trigger"
                     aria-expanded={isOpen}
                     aria-controls={`svc2-panel-${svc.id}`}
-                    onClick={() => setActiveId(svc.id)}
+                    onClick={() => {
+                      if (isMobile) {
+                        setActiveId(isOpen ? null : svc.id)
+                      } else {
+                        setActiveId(svc.id)
+                      }
+                    }}
                   >
                     <span className="svc2__item-num" aria-hidden="true">{svc.num}</span>
                     <span className="svc2__item-title">{svc.title}</span>

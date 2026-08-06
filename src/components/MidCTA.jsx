@@ -37,8 +37,8 @@ export default function MidCTA() {
               the Transition to<br />
               <em className="midcta__heading-em">Clean Energy</em>
             </h2>
-            <a href="#contact" className="midcta__btn">
-              Get Free Estimate
+            <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="midcta__btn">
+              Let's Enquire Now
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

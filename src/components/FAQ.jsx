@@ -36,7 +36,7 @@ const faqs = [
 ]
 
 function FAQItem({ item, index }) {
-  const [open, setOpen] = useState(index === 0)
+  const [open, setOpen] = useState(false)
 
   return (
     <div className={`faq__item${open ? ' faq__item--open' : ''}`} id={item.id}>
@@ -116,10 +116,10 @@ export default function FAQ() {
             />
             <div className="faq__img-overlay">
               <p className="faq__img-text">
-                Switching to solar is an important investment, and we understand you may have questions.
+                <span className="hide-on-mobile">Switching to solar is an important investment, and we understand you may have questions. </span>
                 At Echonix we believe in full transparency from system performance to financing and maintenance.
               </p>
-              <a href="#contact" className="faq__img-cta">
+              <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="faq__img-cta">
                 Contact Us Now
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                   <path d="M2.5 7H11.5M8 3.5L11.5 7L8 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

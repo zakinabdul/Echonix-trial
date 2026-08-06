@@ -79,65 +79,58 @@ export default function Testimonials() {
     if (!container) return
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const isMobile = () => window.innerWidth <= 600
-    if (prefersReduced || !isMobile()) return
+    if (prefersReduced) return
 
-    const items = Array.from(container.querySelectorAll('.tr__grid-item'))
-    if (items.length <= 1) return
+    let intervalId = null
 
-    let idx = 0
-    let rafId = null
-    let stopped = false
+    const startAutoScroll = () => {
+      const isMobile = window.innerWidth <= 600
+      if (!isMobile) return
 
-    const scrollToIndex = (i) => {
-      const el = items[i]
-      if (!el) return
-      container.scrollTo({ left: el.offsetLeft, behavior: 'smooth' })
+      intervalId = setInterval(() => {
+        if (!container) return
+        const maxScroll = container.scrollWidth - container.clientWidth
+        if (container.scrollLeft >= maxScroll - 5) {
+          container.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          const itemWidth = container.clientWidth * 0.84 + 16
+          container.scrollBy({ left: itemWidth, behavior: 'smooth' })
+        }
+      }, 3000)
     }
 
-    const step = () => {
-      if (stopped) return
-      idx = (idx + 1) % items.length
-      scrollToIndex(idx)
-      // schedule next step after delay
-      rafId = window.setTimeout(() => {
-        // use requestAnimationFrame for smoother timing
-        window.requestAnimationFrame(step)
-      }, 2600)
+    startAutoScroll()
+
+    const handleResize = () => {
+      clearInterval(intervalId)
+      intervalId = null
+      startAutoScroll()
     }
 
-    // start after a short delay so initial render settles
-    rafId = window.setTimeout(step, 1200)
-
-    const handleInteractionStart = () => { stopped = true }
-    const handleInteractionEnd = () => { if (!prefersReduced) { stopped = false; rafId = window.setTimeout(step, 800) } }
-
-    container.addEventListener('pointerdown', handleInteractionStart)
-    container.addEventListener('touchstart', handleInteractionStart)
-    container.addEventListener('mouseenter', handleInteractionStart)
-    container.addEventListener('pointerup', handleInteractionEnd)
-    container.addEventListener('touchend', handleInteractionEnd)
-    container.addEventListener('mouseleave', handleInteractionEnd)
-
-    const onResize = () => {
-      if (!isMobile()) {
-        stopped = true
-      }
+    const handleTouchStart = () => {
+      clearInterval(intervalId)
+      intervalId = null
     }
-    window.addEventListener('resize', onResize)
+
+    const handleTouchEnd = () => {
+      clearInterval(intervalId)
+      intervalId = null
+      setTimeout(startAutoScroll, 1000)
+    }
+
+    window.addEventListener('resize', handleResize)
+    container.addEventListener('touchstart', handleTouchStart, { passive: true })
+    container.addEventListener('touchend', handleTouchEnd, { passive: true })
 
     return () => {
-      stopped = true
-      window.clearTimeout(rafId)
-      container.removeEventListener('pointerdown', handleInteractionStart)
-      container.removeEventListener('touchstart', handleInteractionStart)
-      container.removeEventListener('mouseenter', handleInteractionStart)
-      container.removeEventListener('pointerup', handleInteractionEnd)
-      container.removeEventListener('touchend', handleInteractionEnd)
-      container.removeEventListener('mouseleave', handleInteractionEnd)
-      window.removeEventListener('resize', onResize)
+      clearInterval(intervalId)
+      window.removeEventListener('resize', handleResize)
+      if (container) {
+        container.removeEventListener('touchstart', handleTouchStart)
+        container.removeEventListener('touchend', handleTouchEnd)
+      }
     }
-  }, [scrollRef])
+  }, [])
 
   return (
     <section className="tr" id="reviews" aria-labelledby="tr-heading">

@@ -6,7 +6,7 @@ import { useIsMobile } from '../hooks/useIsMobile'
 const services = [
   { label: 'On-Grid Solar', href: '/services#on-grid' },
   { label: 'Off-Grid Solar', href: '/services#off-grid' },
-  { label: 'Hybrid Solar', href: '/services#hybrid' },
+  { label: 'Solar PMC', href: '/services#pmc' },
   { label: 'Solar Inverters', href: '/services#inverters' },
 ]
 
@@ -297,7 +297,7 @@ export default function Navbar() {
           <div className="navbar__actions">
             {/* WhatsApp mobile button - always visible on mobile, hidden on desktop */}
             <a
-              href="https://wa.me/919072551144"
+              href="https://wa.me/919539220888"
               className="navbar__wa-mobile"
               target="_blank"
               rel="noopener noreferrer"
@@ -306,7 +306,7 @@ export default function Navbar() {
               <img src="/whatsapp-white.png" alt="" width="20" height="20" />
             </a>
 
-            <a href={isHomePage ? '#contact' : '/#contact'} className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
+            <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="btn btn--amber" id="cta-quote-nav">Get Free Quote</a>
             <button
               className={`hamburger${mobileOpen ? ' hamburger--active' : ''}`}
               id="hamburger-btn"
@@ -601,7 +601,9 @@ export default function Navbar() {
             {/* ── Bottom area ── */}
             <div style={{ padding: '0 32px 32px', flexShrink: 0 }}>
               <a
-                href={isHomePage ? '#contact' : '/#contact'}
+                href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote."
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={closeMenu}
                 id="cta-quote-mobile"
                 style={{
@@ -622,7 +624,7 @@ export default function Navbar() {
                 Get Free Quote
               </a>
               <a
-                href="https://wa.me/919072551144"
+                href="https://wa.me/919539220888"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
