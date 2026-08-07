@@ -6,8 +6,8 @@ const steps = [
   {
     id: 'hiw-step-1',
     num: '01',
-    title: 'Free Consultation',
-    desc: 'We understand your energy needs and site conditions at zero cost.',
+    title: 'Consultation',
+    desc: 'We understand your energy needs and site conditions.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M8 12h8M12 8v8" stroke="#1A3C2E" strokeWidth="2" strokeLinecap="round"/>

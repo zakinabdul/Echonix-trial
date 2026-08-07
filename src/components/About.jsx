@@ -4,7 +4,7 @@ import { viewportOnce } from '../hooks/animations'
 
 export default function About() {
   const [playing, setPlaying] = useState(false)
-  const videoId = 'dQw4w9WgXcQ' // Editable YouTube Video ID for About Us
+  const videoId = 'BTCX11o-3kw' // Updated YouTube Video ID for About Us
 
   return (
     <section className="about" id="about" aria-labelledby="about-heading">

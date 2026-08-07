@@ -77,10 +77,10 @@ export default function BlogDetailPage() {
             <h3>Ready to Switch to Solar?</h3>
             <p>Get in touch with Echonix today for a free site assessment and customized solar projection report.</p>
             <div className="blog-article__cta-btns">
-              <a href="https://wa.me/919072551144?text=Hi Echonix, I read your article about solar subsidy/installation and would like to get a free consultation." target="_blank" rel="noopener noreferrer" className="btn btn--amber">
+              <a href="https://wa.me/919539220888?text=Hi Echonix, I read your article about solar subsidy/installation and would like to get a free consultation." target="_blank" rel="noopener noreferrer" className="btn btn--amber">
                 Enquire on WhatsApp
               </a>
-              <a href="/#contact" className="btn btn--outline">
+              <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="btn btn--outline">
                 Request Free Quote
               </a>
             </div>

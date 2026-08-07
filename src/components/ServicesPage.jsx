@@ -46,24 +46,24 @@ const products = [
     actionText: 'Request Off-Grid Custom Quote'
   },
   {
-    id: 'hybrid',
-    title: 'Hybrid Solar System',
-    tagline: 'Smart energy grid feed-in + emergency backup.',
-    desc: 'The gold standard of solar. Stay grid-connected to export excess energy and reduce your bill, but also maintain a dedicated battery bank. When KSEB power goes down, the hybrid inverter automatically shifts essential loads (lights, fans, fridges) to battery power within milliseconds.',
-    subsidy: 'Eligible for PM-Surya Ghar subsidy up to ₹78,000 (DCR panels required).',
+    id: 'pmc',
+    title: 'Solar PMC (Project Management Consultancy)',
+    tagline: 'End-to-end solar project supervision and oversight.',
+    desc: 'End-to-end management, supervision, and technical oversight for solar projects. We ensure quality assurance, timeline adherence, regulatory compliance, and seamless execution from site audit to grid integration.',
+    subsidy: null,
     features: [
-      'Exports power to KSEB (net-metering) during normal hours',
-      'Seamless automatic UPS transition during power failures',
-      'Flexible programming (prioritize solar, battery, or grid)',
-      'Smart remote monitoring and battery health tracker'
+      'Comprehensive site audit and feasibility assessment',
+      'Vendor selection, procurement, and quality assurance',
+      'Project timeline tracking and milestone-based supervision',
+      'Regulatory compliance and grid integration management'
     ],
     specs: {
-      capacity: '3 kW to 20 kW',
-      warranty: '25-year panel warranty, 5-year hybrid inverter warranty',
-      inverter: 'Hybrid Grid-Tied Inverter with storage controller',
-      idealFor: 'Homes and businesses in Kerala seeking zero electricity bills along with seamless backup.'
+      scope: 'Residential, Commercial & Industrial Solar Projects',
+      services: 'Site Audit, Vendor Management, Project Supervision',
+      compliance: 'MNRE, KSEB, and Local Regulatory Standards',
+      deliverables: 'From site survey to final grid integration handover'
     },
-    actionText: 'Design My Hybrid Solar System'
+    actionText: 'Enquire About Solar PMC'
   },
   {
     id: 'inverters',
@@ -98,13 +98,13 @@ export default function ServicesPage() {
 
   const onGridRef = useRef(null)
   const offGridRef = useRef(null)
-  const hybridRef = useRef(null)
+  const pmcRef = useRef(null)
   const invertersRef = useRef(null)
 
   const refMap = {
     'on-grid': onGridRef,
     'off-grid': offGridRef,
-    'hybrid': hybridRef,
+    'pmc': pmcRef,
     'inverters': invertersRef
   }
 
@@ -156,7 +156,7 @@ export default function ServicesPage() {
       const refs = {
         'on-grid': onGridRef,
         'off-grid': offGridRef,
-        'hybrid': hybridRef,
+        'pmc': pmcRef,
         'inverters': invertersRef
       }
 
@@ -175,7 +175,7 @@ export default function ServicesPage() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [onGridRef, offGridRef, hybridRef, invertersRef])
+  }, [onGridRef, offGridRef, pmcRef, invertersRef])
 
   // Recommendation logic
   const getRecommendation = () => {
@@ -240,7 +240,7 @@ export default function ServicesPage() {
                 className={`sticky-nav-btn ${activeTab === p.id ? 'is-active' : ''}`}
                 onClick={() => handleTabClick(p.id)}
               >
-                {p.title.split(' ')[0]} {p.title.split(' ')[1] === 'Solar' ? 'Solar' : ''}
+                {p.id === 'pmc' ? 'Solar PMC' : `${p.title.split(' ')[0]} ${p.title.split(' ')[1] === 'Solar' ? 'Solar' : ''}`}
               </button>
             ))}
           </div>
@@ -282,7 +282,7 @@ export default function ServicesPage() {
                   </ul>
 
                   <a 
-                    href={`https://wa.me/919072551144?text=Hi Echonix, I would like to enquire about the ${p.title} for my site.`}
+                    href={`https://wa.me/919539220888?text=Hi Echonix, I would like to enquire about the ${p.title} for my site.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn--amber"
@@ -483,7 +483,7 @@ export default function ServicesPage() {
 
                       <div className="result-actions">
                         <a
-                          href={`https://wa.me/919072551144?text=${encodeURIComponent(recommendation.whatsappMsg)}`}
+                          href={`https://wa.me/919539220888?text=${encodeURIComponent(recommendation.whatsappMsg)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn--amber"

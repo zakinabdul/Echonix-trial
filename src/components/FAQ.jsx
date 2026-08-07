@@ -5,90 +5,74 @@ import { fadeUp, viewportOnce } from '../hooks/animations'
 const faqs = [
   {
     id: 'faq-1',
-    q: 'How much does solar installation cost in Kerala?',
-    a: 'The cost depends on your system size. A typical 3KW residential system costs ₹1.5–2 lakh before subsidy. With the PM Surya Ghar subsidy, you can receive up to ₹78,000, significantly reducing your investment.',
+    q: 'How much can I save by switching to solar?',
+    a: 'Most Kerala households save 80–95% on electricity bills. A 3KW system typically saves ₹18,000–₹24,000 per year, paying back the investment in 4–6 years.',
   },
   {
     id: 'faq-2',
-    q: 'What is the government subsidy for solar in Kerala?',
-    a: 'Under the PM Surya Ghar Muft Bijli Yojana, homeowners can get ₹30,000 for 1KW, ₹60,000 for 2KW, and ₹78,000 for 3KW and above systems.',
+    q: 'How long does the installation process take?',
+    a: 'A typical residential installation is completed in 2–4 days after all approvals. We handle KSEB and government approvals on your behalf, end-to-end.',
   },
   {
     id: 'faq-3',
-    q: 'How long does the installation take?',
-    a: 'A typical residential installation is completed in 2–4 days after all approvals are in place. We handle KSEB and government approvals on your behalf.',
+    q: 'What happens on cloudy days or at night?',
+    a: 'On-grid systems use grid power at night. Hybrid systems with battery storage give you power 24/7. On cloudy days, panels still produce 10–25% of their rated output.',
   },
   {
     id: 'faq-4',
-    q: 'Will solar work during power cuts?',
-    a: 'On-grid systems do not work during power cuts for safety reasons. However, our Hybrid systems with battery backup provide uninterrupted power even when the grid is down.',
+    q: 'Are there government incentives available?',
+    a: 'Yes. Under PM Surya Ghar Muft Bijli Yojana, homeowners get up to ₹78,000 in subsidy. We handle all paperwork and ensure you receive the full benefit.',
   },
   {
     id: 'faq-5',
-    q: 'What maintenance does a solar system need?',
-    a: 'Solar panels require minimal maintenance — primarily cleaning every 3–6 months. We offer Annual Maintenance Contract (AMC) plans for worry-free ownership.',
+    q: 'How long do solar panels last?',
+    a: 'Quality panels last 25–30 years with minimal degradation. We supply Tier-1 panels backed by 25-year performance warranties. Inverters typically last 10–15 years.',
   },
   {
     id: 'faq-6',
-    q: 'How soon will I recover my investment?',
-    a: 'Most residential solar systems in Kerala achieve payback within 4–6 years, after which you enjoy virtually free electricity for 20+ years.',
+    q: 'Does solar increase property value?',
+    a: 'Yes. Studies show solar installations increase property value by 3–5%. A solar home sells faster and is more attractive to buyers due to the savings it provides.',
   },
 ]
 
-function FAQItem({ item, index, defaultOpen }) {
-  const [open, setOpen] = useState(defaultOpen)
+function FAQItem({ item, index }) {
+  const [open, setOpen] = useState(false)
 
   return (
-    <motion.div
-      className={`faq-item ${open ? 'is-open' : ''}`}
-      id={item.id}
-      role="listitem"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={viewportOnce}
-      transition={{ delay: index * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <div className={`faq__item${open ? ' faq__item--open' : ''}`} id={item.id}>
       <button
-        className="faq-question"
+        className="faq__q"
         aria-expanded={open}
-        aria-controls={`${item.id}-answer`}
-        id={`${item.id}-btn`}
-        onClick={() => setOpen((v) => !v)}
+        aria-controls={`${item.id}-ans`}
+        onClick={() => setOpen(v => !v)}
       >
-        <span className="faq-question__text">{item.q}</span>
-        <span className="faq-question__icon" aria-hidden="true">
-          <motion.svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            animate={{ rotate: open ? 180 : 0 }}
-            transition={{ duration: 0.25 }}
+        <span className="faq__q-text">{item.q}</span>
+        <span className="faq__q-icon" aria-hidden="true">
+          <svg
+            width="18" height="18" viewBox="0 0 18 18" fill="none"
+            style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease' }}
           >
-            <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </motion.svg>
+            <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </span>
       </button>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
-            className="faq-answer"
-            id={`${item.id}-answer`}
+            id={`${item.id}-ans`}
             role="region"
             aria-labelledby={`${item.id}-btn`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="faq-answer__inner">
-              <p>{item.a}</p>
-            </div>
+            <p className="faq__a">{item.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }
 
@@ -96,25 +80,68 @@ export default function FAQ() {
   return (
     <section className="faq" id="faq" aria-labelledby="faq-heading">
       <div className="faq__inner">
+
+        {/* Left column — heading + image card */}
         <motion.div
-          className="faq__header"
-          initial="hidden"
-          whileInView="visible"
+          className="faq__left"
+          initial={{ opacity: 0, x: -32 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={viewportOnce}
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
-          <motion.p className="section-eyebrow" variants={fadeUp}>Got Questions?</motion.p>
-          <motion.h2 className="section-title faq__title" id="faq-heading" variants={fadeUp}>Clear Your Doubts</motion.h2>
-          <motion.p className="faq__mobile-hint" variants={fadeUp}>
-            Tap any question to read the answer
+          <motion.p
+            className="section-eyebrow"
+            initial="hidden" whileInView="visible"
+            viewport={viewportOnce} variants={fadeUp}
+          >
+            FAQ
           </motion.p>
+          <motion.h2
+            className="section-title faq__heading" id="faq-heading"
+            initial="hidden" whileInView="visible"
+            viewport={viewportOnce} variants={fadeUp}
+          >
+            Everything You Need<br />
+            to Know Before<br />
+            <em className="faq__heading-em">Going Solar</em>
+          </motion.h2>
+
+          {/* Image card with CTA overlay */}
+          <div className="faq__img-card">
+            <img
+              src="/heroes/hero-solar.png"
+              alt="Solar panels installation"
+              className="faq__img"
+              loading="lazy"
+            />
+            <div className="faq__img-overlay">
+              <p className="faq__img-text">
+                <span className="hide-on-mobile">Switching to solar is an important investment, and we understand you may have questions. </span>
+                At Echonix we believe in full transparency from system performance to financing and maintenance.
+              </p>
+              <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20get%20a%20free%20quote." target="_blank" rel="noopener noreferrer" className="faq__img-cta">
+                Contact Us Now
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2.5 7H11.5M8 3.5L11.5 7L8 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="faq__list" id="faq-list" role="list">
+        {/* Right column — accordion */}
+        <motion.div
+          className="faq__right"
+          initial={{ opacity: 0, x: 32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        >
           {faqs.map((item, i) => (
-            <FAQItem key={item.id} item={item} index={i} defaultOpen={i === 0} />
+            <FAQItem key={item.id} item={item} index={i} />
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   )

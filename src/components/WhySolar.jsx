@@ -63,7 +63,7 @@ export default function WhySolar() {
             <strong>Get up to ₹78,000 government subsidy</strong> on your solar installation.
             <span className="subsidy-banner__sub"> Limited time — apply now.</span>
           </p>
-          <a href="#contact" className="subsidy-banner__btn" id="check-eligibility-btn">
+          <a href="https://wa.me/919539220888?text=Hi%20Echonix,%20I%20would%20like%20to%20check%20my%20solar%20subsidy%20eligibility." target="_blank" rel="noopener noreferrer" className="subsidy-banner__btn" id="check-eligibility-btn">
             Check My Eligibility
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

@@ -1,105 +1,147 @@
+import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
-import { useIsMobile } from '../hooks/useIsMobile'
 import projects from '../data/projects'
 
-const homeProjects = projects.filter((p) => p.featured).slice(0, 6).map((p, i) => ({
-  ...p,
-  delay: [0, 0.1, 0.2, 0, 0.1, 0.2][i] ?? 0,
-}))
+// Show all 6 projects (3 featured first, then the rest)
+const featured = projects.filter((p) => p.featured)
+const rest = projects.filter((p) => !p.featured)
+const homeProjects = [...featured, ...rest]
 
-function GalleryCard({ p, lazy = true }) {
+function GalleryCard({ p, index = 0 }) {
   return (
-    <article className="gallery-card" role="listitem" id={p.id}>
-      <div className="gallery-card__img-wrap">
-        <img
-          src={p.img || p.image}
-          alt={p.alt}
-          className="gallery-card__img"
-          loading={lazy ? 'lazy' : 'eager'}
-          decoding="async"
-          width="600"
-          height="420"
-        />
-      </div>
-      <div className="gallery-card__overlay">
-        <div className="gallery-card__info">
-          <h3 className="gallery-card__name">{p.name}</h3>
-          <div className="gallery-card__meta-row">
-            {p.kw && <span className="gallery-card__kw">{p.kw}</span>}
-            {p.kw && p.location && <span className="gallery-card__divider">·</span>}
-            {p.location && <span className="gallery-card__location">{p.location}</span>}
+    <motion.article
+      className="gal__card"
+      id={p.id}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ delay: index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="gal__card-inner">
+        <div className="gal__img-wrap">
+          <img
+            src={p.image}
+            alt={p.alt || p.name}
+            className="gal__img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {/* Overlay — always visible, with gradient fade */}
+        <div className="gal__overlay">
+          <div className="gal__overlay-bg" />
+          <div className="gal__info">
+            {p.type && <span className="gal__type">{p.type}</span>}
+            <h3 className="gal__name">{p.name}</h3>
+            <div className="gal__meta">
+              {p.kw && <span className="gal__kw">{p.kw}</span>}
+              {p.kw && p.location && <span className="gal__dot" aria-hidden="true">·</span>}
+              {p.location && <span className="gal__location">{p.location}</span>}
+            </div>
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   )
 }
 
 export default function Gallery() {
-  const isMobile = useIsMobile()
+  const gridRef = useRef(null)
+
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+
+    let intervalId
+    const startAutoScroll = () => {
+      const isMobile = window.innerWidth <= 600
+      if (!isMobile) return
+
+      intervalId = setInterval(() => {
+        if (!grid) return
+        const maxScroll = grid.scrollWidth - grid.clientWidth
+        if (grid.scrollLeft >= maxScroll - 5) {
+          grid.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          const scrollAmount = grid.clientWidth * 0.85 + 16
+          grid.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+        }
+      }, 3500)
+    }
+
+    startAutoScroll()
+
+    const handleResize = () => {
+      clearInterval(intervalId)
+      startAutoScroll()
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    const handleTouchStart = () => {
+      clearInterval(intervalId)
+    }
+
+    const handleTouchEnd = () => {
+      clearInterval(intervalId)
+      startAutoScroll()
+    }
+
+    grid.addEventListener('touchstart', handleTouchStart, { passive: true })
+    grid.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+    return () => {
+      clearInterval(intervalId)
+      window.removeEventListener('resize', handleResize)
+      if (grid) {
+        grid.removeEventListener('touchstart', handleTouchStart)
+        grid.removeEventListener('touchend', handleTouchEnd)
+      }
+    }
+  }, [])
 
   return (
-    <section className="gallery" id="projects" aria-labelledby="gallery-heading">
-      <div className="gallery__inner">
+    <section className="gal" id="projects" aria-labelledby="gal-heading">
+      <div className="gal__inner">
+
+        {/* Header */}
         <motion.div
-          className="section-header"
+          className="gal__header"
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.p className="section-eyebrow" variants={fadeUp}>Our Portfolio</motion.p>
-          <motion.h2 className="section-title" id="gallery-heading" variants={fadeUp}>
-            Our Work Across Kerala
+          <motion.h2 className="section-title" id="gal-heading" variants={fadeUp}>
+            Our Work Speaks<br />Through <em className="gal__heading-em">Our Clients</em>
           </motion.h2>
           <motion.p className="section-subtitle" variants={fadeUp}>
-            Real installations. Real results. From homes to institutions.
+            Real installations across Kerala — homes, institutions, and industry.
           </motion.p>
         </motion.div>
 
-        {isMobile ? (
-          /* ── Mobile: horizontal snap carousel ── */
-          <div className="gallery__carousel" role="list" aria-label="Project photos">
-            {homeProjects.map((p) => (
-              <div key={p.id} className="gallery__carousel-item" role="listitem">
-                <GalleryCard p={p} />
-              </div>
-            ))}
-            <div className="gallery__carousel-spacer" aria-hidden="true" />
-          </div>
-        ) : (
-          /* ── Desktop: 3-col grid ── */
-          <div className="gallery__grid" role="list">
-            {homeProjects.map((p) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
-                transition={{ delay: p.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <GalleryCard p={p} />
-              </motion.div>
-            ))}
-          </div>
-        )}
+        {/* Grid — 3-col desktop, 2-col tablet, 1-col swipe on mobile */}
+        <div className="gal__grid" role="list" ref={gridRef}>
+          {homeProjects.map((p, i) => (
+            <div key={p.id} role="listitem" className="gal__grid-item">
+              <GalleryCard p={p} index={i} />
+            </div>
+          ))}
+        </div>
 
-        <motion.div
-          className="gallery__cta"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <Link to="/projects" className="gallery__view-all" id="view-all-projects">
-            View More
+        {/* CTA */}
+        <div className="gal__cta">
+          <Link to="/projects" className="gal__view-all">
+            View All Projects
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M3.5 9H14.5M10 4.5L14.5 9L10 13.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3.5 9H14.5M10 4.5L14.5 9L10 13.5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </Link>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   )
