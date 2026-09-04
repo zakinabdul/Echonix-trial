@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
 import { useIsMobile } from '../hooks/useIsMobile'

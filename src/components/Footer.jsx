@@ -1,8 +1,11 @@
-import { Link, useLocation } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
-  const location = useLocation()
-  const isHomePage = location.pathname === '/'
+  const pathname = usePathname()
+  const isHomePage = pathname === '/'
 
   const companyLinks = [
     { label: 'Home', to: '/' },
@@ -61,7 +64,7 @@ export default function Footer() {
   const renderFooterLink = (link) => {
     if (link.to) {
       return (
-        <Link to={link.to} onClick={() => window.scrollTo({ top: 0 })} className="footer__link">
+        <Link href={link.to} onClick={() => window.scrollTo({ top: 0 })} className="footer__link">
           {link.label}
         </Link>
       )

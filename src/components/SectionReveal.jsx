@@ -1,11 +1,8 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { viewportOnce } from '../hooks/animations'
 
-/**
- * SectionReveal — wraps a section in a smooth fade-up entrance animation
- * triggered when it enters the viewport.
- * Usage: <SectionReveal delay={0.1}> ... </SectionReveal>
- */
 export default function SectionReveal({ children, delay = 0, className = '' }) {
   return (
     <motion.div

@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
 import { useIsMobile } from '../hooks/useIsMobile'
@@ -18,13 +20,13 @@ function BlogCard({ blog }) {
           <span className="blog-card__read-time">{blog.readTime}</span>
         </div>
         <h3 className="blog-card__title">
-          <Link to={`/blog/${blog.id}`} className="blog-card__title-link">
+          <Link href={`/blog/${blog.id}`} className="blog-card__title-link">
             {blog.title}
           </Link>
         </h3>
         <p className="blog-card__excerpt">{blog.excerpt}</p>
         <Link
-          to={`/blog/${blog.id}`}
+          href={`/blog/${blog.id}`}
           className="blog-card__read-more"
           aria-label={`Read full article: ${blog.title}`}
         >
@@ -96,7 +98,7 @@ export default function BlogPreview() {
           viewport={viewportOnce}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <Link to="/blog" className="btn btn--outline" id="view-all-blogs">
+          <Link href="/blog" className="btn btn--outline" id="view-all-blogs">
             View All Articles
           </Link>
         </motion.div>

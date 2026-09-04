@@ -1,5 +1,7 @@
+'use client'
+
 import { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../hooks/animations'
 import projects from '../data/projects'
@@ -134,7 +136,7 @@ export default function Gallery() {
 
         {/* CTA */}
         <div className="gal__cta">
-          <Link to="/projects" className="gal__view-all">
+          <Link href="/projects" className="gal__view-all">
             View All Projects
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M3.5 9H14.5M10 4.5L14.5 9L10 13.5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"/>

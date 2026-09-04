@@ -1,24 +1,18 @@
+'use client'
+
 import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import Link from 'next/link'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import FloatingWhatsApp from './FloatingWhatsApp'
 import blogs from '../data/blogs'
 
-export default function BlogDetailPage() {
-  const { id } = useParams()
+export default function BlogDetailPage({ id }) {
   const blog = blogs.find((b) => b.id === id)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
-    if (blog) {
-      document.title = `${blog.title} | Echonix Technology`
-      const meta = document.querySelector('meta[name="description"]')
-      if (meta) {
-        meta.setAttribute('content', blog.excerpt)
-      }
-    }
-  }, [blog, id])
+  }, [])
 
   if (!blog) {
     return (
@@ -28,7 +22,7 @@ export default function BlogDetailPage() {
           <div className="blog-detail-error__inner">
             <h1>Article Not Found</h1>
             <p>The blog article you are looking for does not exist or has been moved.</p>
-            <Link to="/blog" className="btn btn--amber">
+            <Link href="/blog" className="btn btn--amber">
               Back to Blogs
             </Link>
           </div>
@@ -38,7 +32,6 @@ export default function BlogDetailPage() {
     )
   }
 
-  // Get related articles (excluding the current one)
   const related = blogs.filter((b) => b.id !== blog.id).slice(0, 2)
 
   return (
@@ -47,7 +40,7 @@ export default function BlogDetailPage() {
       <main className="blog-detail-page">
         <article className="blog-article">
           <div className="blog-article__header">
-            <Link to="/blog" className="blog-article__back-link">
+            <Link href="/blog" className="blog-article__back-link">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M11.5 7H2.5M6 3.5L2.5 7L6 10.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -87,7 +80,6 @@ export default function BlogDetailPage() {
           </div>
         </article>
 
-        {/* Related Posts */}
         {related.length > 0 && (
           <section className="blog-related" aria-labelledby="related-heading">
             <div className="blog-related__inner">
@@ -101,11 +93,11 @@ export default function BlogDetailPage() {
                     </div>
                     <div className="blog-card__content">
                       <h3 className="blog-card__title">
-                        <Link to={`/blog/${post.id}`} className="blog-card__title-link">
+                        <Link href={`/blog/${post.id}`} className="blog-card__title-link">
                           {post.title}
                         </Link>
                       </h3>
-                      <Link to={`/blog/${post.id}`} className="blog-card__read-more">
+                      <Link href={`/blog/${post.id}`} className="blog-card__read-more">
                         Read Article
                       </Link>
                     </div>

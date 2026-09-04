@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+'use client'
+
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -7,175 +9,134 @@ import FloatingWhatsApp from './FloatingWhatsApp'
 const products = [
   {
     id: 'on-grid',
-    title: 'On-Grid Solar System',
-    tagline: 'Best for bringing your KSEB bills to near-zero.',
-    desc: 'Connect your rooftop solar system directly to the Kerala State Electricity Board (KSEB) grid. The solar power generated is consumed first. Any surplus is exported to the grid, earning you net metering credits that reduce your bi-monthly bill. Fully eligible for central government subsidies.',
-    subsidy: 'Eligible for up to ₹78,000 central subsidy under PM-Surya Ghar Scheme.',
-    features: [
-      'Bidirectional net-metering connection with KSEB',
-      'No battery replacement costs (longest system lifespan)',
-      'High-performance Tier-1 panels (DCR compliant)',
-      'Grid protection and anti-islanding safety features'
+    number: '01',
+    title: 'On-Grid Solar',
+    shortTitle: 'On-Grid',
+    tagline: 'Save more with KSEB net metering.',
+    desc: 'Connect your solar system directly to the KSEB grid and use the power you generate. Excess electricity can be exported to the grid through net metering, helping bring your electricity bills close to zero.',
+    tag: 'Most Popular',
+    icon: 'grid',
+    image: '/images/services/on-grid.jpg',
+    benefits: [
+      'KSEB net-metering connection',
+      'Government subsidy eligible',
+      'No battery replacement costs',
+      'Ideal for homes & businesses',
     ],
-    specs: {
-      capacity: '3 kW to 100+ kW',
-      warranty: '25-year panel warranty, 5-year inverter warranty',
-      inverter: 'On-Grid String Inverter (KSEB approved)',
-      idealFor: 'Homes, colleges, hospitals, and commercial units with high daytime usage and stable grid supply.'
-    },
-    actionText: 'Book Free On-Grid Site Survey'
+    actionText: 'Book Free Site Survey',
   },
   {
     id: 'off-grid',
-    title: 'Off-Grid Solar System',
-    tagline: 'Complete energy independence with battery backup.',
-    desc: 'Completely disconnect from the electrical grid or protect yourself fully from load shedding. Off-grid systems store solar energy in deep-cycle solar battery banks. This stored power runs your home or estate during the night and throughout power outages.',
-    subsidy: 'Note: Pure off-grid installations are not eligible for KSEB grid-connected subsidies.',
-    features: [
-      '100% independence from KSEB grids and power cuts',
-      'Heavy-duty battery bank (Tubular/Lithium options)',
-      'Intelligent solar charge controller (MPPT technology)',
-      'Backup generator integration compatible'
+    number: '02',
+    title: 'Off-Grid Solar',
+    shortTitle: 'Off-Grid',
+    tagline: 'Complete energy independence with battery storage.',
+    desc: 'Generate, store and use your own solar power without depending on the electrical grid. A reliable solution for properties that experience frequent or long-duration power cuts.',
+    tag: 'Energy Independent',
+    icon: 'battery',
+    image: '/images/services/off-grid.jpg',
+    benefits: [
+      'Battery backup included',
+      'Works during power cuts',
+      'Independent from KSEB',
+      'Ideal for remote locations',
     ],
-    specs: {
-      capacity: '1 kW to 15+ kW',
-      warranty: '25-year panel warranty, 3 to 5-year battery warranty',
-      inverter: 'Off-Grid Sine Wave Solar Inverter',
-      idealFor: 'Remote plantations, high-range estate bungalows, and areas with frequent long-duration load shedding.'
-    },
-    actionText: 'Request Off-Grid Custom Quote'
+    actionText: 'Request Custom Quote',
   },
   {
-    id: 'pmc',
-    title: 'Solar PMC (Project Management Consultancy)',
-    tagline: 'End-to-end solar project supervision and oversight.',
-    desc: 'End-to-end management, supervision, and technical oversight for solar projects. We ensure quality assurance, timeline adherence, regulatory compliance, and seamless execution from site audit to grid integration.',
-    subsidy: null,
-    features: [
-      'Comprehensive site audit and feasibility assessment',
-      'Vendor selection, procurement, and quality assurance',
-      'Project timeline tracking and milestone-based supervision',
-      'Regulatory compliance and grid integration management'
+    id: 'hybrid',
+    number: '03',
+    title: 'Hybrid Solar',
+    shortTitle: 'Hybrid',
+    tagline: 'The best of grid power and battery backup.',
+    desc: 'Stay connected to the KSEB grid while storing solar energy in batteries. Hybrid systems provide backup during outages while allowing you to use or export solar power during normal grid hours.',
+    tag: 'Best of Both',
+    icon: 'hybrid',
+    image: '/images/services/hybrid.jpg',
+    benefits: [
+      'Grid + battery backup',
+      'Reliable during outages',
+      'Smart energy management',
+      'Flexible for homes & businesses',
     ],
-    specs: {
-      scope: 'Residential, Commercial & Industrial Solar Projects',
-      services: 'Site Audit, Vendor Management, Project Supervision',
-      compliance: 'MNRE, KSEB, and Local Regulatory Standards',
-      deliverables: 'From site survey to final grid integration handover'
-    },
-    actionText: 'Enquire About Solar PMC'
+    actionText: 'Explore Hybrid Solar',
   },
   {
     id: 'inverters',
-    title: 'Solar Inverters & Accessories',
-    tagline: 'Premium power conversion for maximum performance.',
-    desc: 'An inefficient inverter can cause up to 20% power loss. We supply and commission only high-efficiency grid-tied, off-grid, and hybrid inverters from leading global brands, ensuring maximum generation yields and reliable thermal management under Kerala humidity.',
-    subsidy: 'Included as part of complete system packages under standard MNRE guidelines.',
-    features: [
-      'Authorized Mahindra Solarize channel partner in Kerala',
-      'Multiple MPPT trackers for complex, shaded rooftops',
-      'High-speed cooling fans and IP65 dust/waterproof ratings',
-      'In-built Wi-Fi/GPRS modules for solar production mobile apps'
+    number: '04',
+    title: 'Solar Inverters',
+    shortTitle: 'Inverters',
+    tagline: 'High-efficiency power conversion for your solar system.',
+    desc: 'High-efficiency inverters compatible with major solar panel brands and battery systems. We supply, install and commission reliable inverter solutions for on-grid, off-grid and hybrid systems.',
+    tag: 'High Efficiency',
+    icon: 'inverter',
+    image: '/images/services/inverter.jpg',
+    benefits: [
+      'High conversion efficiency',
+      'On-grid, off-grid & hybrid',
+      'Major brand compatibility',
+      'Professional installation',
     ],
-    specs: {
-      brands: 'Mahindra Solarize, Growatt, Fronius, Solis',
-      efficiency: 'Up to 98.6% peak efficiency',
-      monitoring: 'Mobile App / Web Portal dashboard included',
-      safety: 'DC surge protection (SPD), short-circuit, and overload cut-offs'
-    },
-    actionText: 'Inquire About Inverters'
-  }
+    actionText: 'Enquire About Inverters',
+  },
 ]
 
+const Icon = ({ type, size = 22 }) => {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': true,
+  }
+
+  if (type === 'grid') {
+    return (
+      <svg {...common}>
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
+      </svg>
+    )
+  }
+
+  if (type === 'battery') {
+    return (
+      <svg {...common}>
+        <rect x="3" y="6" width="17" height="12" rx="2" />
+        <path d="M20 10h1.5a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H20" />
+        <path d="M10 8.5 7.8 12h2.8l-1 3.5 3.4-4.5h-2.8L12 8.5Z" />
+      </svg>
+    )
+  }
+
+  if (type === 'hybrid') {
+    return (
+      <svg {...common}>
+        <path d="M12 3v18M3 12h18" />
+        <path d="M7 7a7 7 0 0 1 10 0M7 17a7 7 0 0 0 10 0" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg {...common}>
+      <path d="M13 2 4.5 13h6L10 22l9.5-13h-6L13 2Z" />
+    </svg>
+  )
+}
+
 export default function ServicesPage() {
-  const [activeTab, setActiveTab] = useState('on-grid')
-  const [wizardStep, setWizardStep] = useState(0) // 0: intro, 1: type, 2: bill, 3: cuts, 4: result
+  const [activeService, setActiveService] = useState('on-grid')
+  const [wizardStep, setWizardStep] = useState(0)
   const [answers, setAnswers] = useState({
-    userType: '', // Residential, Commercial
-    monthlyBill: '', // Low (<1500), Medium (1500-4000), High (4000+)
-    powerCuts: '' // Rare, Occasional, Frequent
+    userType: '',
+    monthlyBill: '',
+    powerCuts: '',
   })
-
-  const onGridRef = useRef(null)
-  const offGridRef = useRef(null)
-  const pmcRef = useRef(null)
-  const invertersRef = useRef(null)
-
-  const refMap = {
-    'on-grid': onGridRef,
-    'off-grid': offGridRef,
-    'pmc': pmcRef,
-    'inverters': invertersRef
-  }
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-    document.title = 'Solar Services & Products | Echonix Technology Tirur'
-    const meta = document.querySelector('meta[name="description"]')
-    if (meta) {
-      meta.setAttribute(
-        'content',
-        'Compare Echonix On-Grid, Off-Grid, and Hybrid Solar systems. Explore solar inverters. Find the right system for your Kerala home with our interactive Solar Calculator.'
-      )
-    }
-
-    return () => {
-      document.title = 'Solar Panel Installation in Kerala | Echonix Technology'
-      if (meta) {
-        meta.setAttribute(
-          'content',
-          'Professional solar installation across Kerala. Up to ₹78,000 government subsidy. MNRE empanelled EPC company. Free site survey. Call +91 9072 55 11 44'
-        )
-      }
-    }
-  }, [])
-
-  // Auto scroll tab handler
-  const handleTabClick = (id) => {
-    setActiveTab(id)
-    const element = refMap[id].current
-    if (element) {
-      const offset = 140 // height of sticky bar + navbar
-      const bodyRect = document.body.getBoundingClientRect().top
-      const elementRect = element.getBoundingClientRect().top
-      const elementPosition = elementRect - bodyRect
-      const offsetPosition = elementPosition - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
-  }
-
-  // Handle active tab state based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200 // offset for trigger line
-      
-      const refs = {
-        'on-grid': onGridRef,
-        'off-grid': offGridRef,
-        'pmc': pmcRef,
-        'inverters': invertersRef
-      }
-
-      for (const [id, ref] of Object.entries(refs)) {
-        const element = ref.current
-        if (element) {
-          const top = element.offsetTop
-          const height = element.offsetHeight
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveTab(id)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [onGridRef, offGridRef, pmcRef, invertersRef])
 
   // Recommendation logic
   const getRecommendation = () => {
@@ -200,7 +161,6 @@ export default function ServicesPage() {
         whatsappMsg: `Hi Echonix, I used your Solar Wizard. Recommendation: Hybrid or On-Grid. My details: ${userType}, Bill: ${monthlyBill}, Power Cuts: ${powerCuts}. Please contact me.`
       }
     } else {
-      // Rare or low bill
       return {
         type: 'On-Grid Solar System',
         size: monthlyBill === 'Low' ? '2 kW On-Grid' : (userType === 'Residential' ? '3 kW to 5 kW On-Grid' : '10 kW+ On-Grid'),
@@ -219,109 +179,224 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar />
+
       <main className="services-page">
-        {/* Banner Hero */}
+
+        {/* Hero */}
         <section className="services-page__hero">
           <div className="services-page__hero-inner">
-            <p className="section-eyebrow">Product Catalog</p>
-            <h1 className="services-page__heading">Solar Solutions & Products</h1>
+            <p className="section-eyebrow">Solar Solutions</p>
+
+            <h1 className="services-page__heading">
+              Power your future
+              <br />
+              <span>your way.</span>
+            </h1>
+
             <p className="section-subtitle">
-              Engineered with premium Tier-1 components. Tailored specifically for Kerala's coastal air and heavy monsoon seasons.
+              From grid-connected systems to complete energy independence,
+              choose the solar solution that fits your home, business and
+              energy goals.
             </p>
           </div>
         </section>
 
-        {/* Sticky Mobile/Desktop Horizontal Tab Bar */}
-        <div className="services-page__sticky-nav">
-          <div className="services-page__sticky-nav-inner">
-            {products.map((p) => (
-              <button
-                key={p.id}
-                className={`sticky-nav-btn ${activeTab === p.id ? 'is-active' : ''}`}
-                onClick={() => handleTabClick(p.id)}
-              >
-                {p.id === 'pmc' ? 'Solar PMC' : `${p.title.split(' ')[0]} ${p.title.split(' ')[1] === 'Solar' ? 'Solar' : ''}`}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* New Interactive Service Showcase */}
+        <section className="services-selector" aria-labelledby="solar-solutions-heading">
+          <div className="services-selector__inner">
 
-        {/* Products Showcase */}
-        <section className="services-page__list">
-          <div className="services-page__list-inner">
-            {products.map((p) => (
-              <article
-                key={p.id}
-                id={p.id}
-                ref={refMap[p.id]}
-                className="service-showcase-card"
-              >
-                <div className="service-showcase-card__content">
-                  <span className="product-badge">{p.id.toUpperCase()}</span>
-                  <h2 className="product-title">{p.title}</h2>
-                  <p className="product-tagline">{p.tagline}</p>
-                  <p className="product-desc">{p.desc}</p>
-                  
-                  {p.subsidy && (
-                    <div className="product-subsidy-alert">
-                      <span className="alert-icon">🎁</span>
-                      <p>{p.subsidy}</p>
-                    </div>
-                  )}
+            <div className="services-selector__intro">
+              <div className="services-selector__eyebrow">
+                <span />
+                <p>Explore Solar Solutions</p>
+                <span />
+              </div>
 
-                  <h3 className="sub-title">Key Advantages</h3>
-                  <ul className="product-features" role="list">
-                    {p.features.map((feature, i) => (
-                      <li key={i}>
-                        <svg className="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M3 8l3.5 3.5L13 4.5" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+              <h2 id="solar-solutions-heading">
+                Find the right solar system
+                <br />
+                <strong>for your energy needs.</strong>
+              </h2>
 
-                  <a 
-                    href={`https://wa.me/919539220888?text=Hi Echonix, I would like to enquire about the ${p.title} for my site.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--amber"
-                  >
-                    {p.actionText}
-                  </a>
-                </div>
+              <p>
+                Whether you want lower electricity bills, reliable backup,
+                or complete energy independence, Echonix has a solution
+                designed around the way you use power.
+              </p>
+            </div>
 
-                <div className="service-showcase-card__specs">
-                  <h3>Technical Specifications</h3>
-                  <div className="specs-table">
-                    {Object.entries(p.specs).map(([key, val]) => (
-                      <div key={key} className="specs-row">
-                        <span className="specs-key">
-                          {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+            <div className="services-selector__showcase">
+
+              {/* Service Navigation */}
+              <div className="services-selector__menu">
+                <p className="services-selector__menu-label">
+                  Explore solutions
+                </p>
+
+                <div className="services-selector__items">
+                  {products.map((service) => {
+                    const isActive = activeService === service.id
+
+                    return (
+                      <button
+                        key={service.id}
+                        type="button"
+                        className={`services-selector__item ${
+                          isActive ? 'is-active' : ''
+                        }`}
+                        onClick={() => setActiveService(service.id)}
+                        aria-pressed={isActive}
+                      >
+                        <span className="services-selector__number">
+                          {service.number}
                         </span>
-                        <span className="specs-val">{val}</span>
-                      </div>
-                    ))}
-                  </div>
+
+                        <span className="services-selector__item-icon">
+                          <Icon type={service.icon} size={19} />
+                        </span>
+
+                        <span className="services-selector__item-copy">
+                          <strong>{service.title}</strong>
+                          <small>{service.tag}</small>
+                        </span>
+
+                        <span className="services-selector__arrow">
+                          ↗
+                        </span>
+                      </button>
+                    )
+                  })}
                 </div>
-              </article>
-            ))}
+
+                <div className="services-selector__help">
+                  <span>Not sure which system is right for you?</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      document
+                        .getElementById('solar-wizard')
+                        ?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                  >
+                    Use our Solar Wizard →
+                  </button>
+                </div>
+              </div>
+
+              {/* Active Service */}
+              <AnimatePresence mode="wait">
+                {products
+                  .filter((service) => service.id === activeService)
+                  .map((service) => (
+                    <motion.div
+                      key={service.id}
+                      className="services-selector__visual"
+                      initial={{ opacity: 0, x: 18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -18 }}
+                      transition={{ duration: 0.35 }}
+                    >
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="services-selector__image"
+                      />
+
+                      <div className="services-selector__overlay" />
+
+                      <div className="services-selector__visual-content">
+                        <div className="services-selector__top">
+                          <span className="services-selector__tag">
+                            <i />
+                            {service.tag}
+                          </span>
+                        </div>
+
+                        <div className="services-selector__details">
+                          <div className="services-selector__service-icon">
+                            <Icon type={service.icon} size={22} />
+                          </div>
+
+                          <span className="services-selector__solution-number">
+                            Solar Solution {service.number}
+                          </span>
+
+                          <h3>{service.title}</h3>
+
+                          <p className="services-selector__tagline">
+                            {service.tagline}
+                          </p>
+
+                          <p className="services-selector__description">
+                            {service.desc}
+                          </p>
+
+                          <div className="services-selector__benefits">
+                            {service.benefits.map((benefit) => (
+                              <span key={benefit}>
+                                <b>✓</b>
+                                {benefit}
+                              </span>
+                            ))}
+                          </div>
+
+                          <a
+                            href={`https://wa.me/919539220888?text=${encodeURIComponent(
+                              `Hi Echonix, I would like to enquire about the ${service.title} for my site.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="services-selector__cta"
+                          >
+                            {service.actionText}
+                            <span>↗</span>
+                          </a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
+
+            </div>
+
+            {/* Trust strip */}
+            <div className="services-selector__trust">
+              <span>✓ KSEB compliant installations</span>
+              <span>✓ Quality components</span>
+              <span>✓ Professional installation</span>
+              <span>✓ After-sales support</span>
+            </div>
+
           </div>
         </section>
 
-        {/* Wizard Section */}
-        <section className="wizard-section" id="solar-wizard" aria-labelledby="wizard-heading">
+        {/* Solar Wizard */}
+        <section
+          className="wizard-section"
+          id="solar-wizard"
+          aria-labelledby="wizard-heading"
+        >
           <div className="wizard-section__inner">
             <div className="wizard-card">
+
               <div className="wizard-card__text-side">
                 <p className="section-eyebrow">Smart Calculator</p>
-                <h2 id="wizard-heading">Not sure which system you need?</h2>
-                <p>Use our interactive Solar Recommendation Wizard. Answer three simple questions, and our algorithms will calculate your recommended size and type based on Kerala's local grid conditions.</p>
+
+                <h2 id="wizard-heading">
+                  Not sure which system you need?
+                </h2>
+
+                <p>
+                  Use our interactive Solar Recommendation Wizard. Answer
+                  three simple questions, and our algorithms will calculate
+                  your recommended size and type based on Kerala's local
+                  grid conditions.
+                </p>
               </div>
 
               <div className="wizard-card__wizard-side">
                 <AnimatePresence mode="wait">
-                  {/* Step 0: Intro */}
+
                   {wizardStep === 0 && (
                     <motion.div
                       key="step-0"
@@ -331,14 +406,21 @@ export default function ServicesPage() {
                       className="wizard-step"
                     >
                       <h3>Find Your Perfect Solar Fit</h3>
-                      <p>Answer 3 quick questions about your property, bill, and power grid status in under 1 minute.</p>
-                      <button className="btn btn--amber" onClick={() => setWizardStep(1)}>
+
+                      <p>
+                        Answer 3 quick questions about your property, bill,
+                        and power grid status in under 1 minute.
+                      </p>
+
+                      <button
+                        className="btn btn--amber"
+                        onClick={() => setWizardStep(1)}
+                      >
                         Start Solar Wizard
                       </button>
                     </motion.div>
                   )}
 
-                  {/* Step 1: User Type */}
                   {wizardStep === 1 && (
                     <motion.div
                       key="step-1"
@@ -348,21 +430,38 @@ export default function ServicesPage() {
                       className="wizard-step"
                     >
                       <span className="step-indicator">Question 1 of 3</span>
+
                       <h3>Where do you want to install solar?</h3>
+
                       <div className="wizard-options">
                         <button
-                          className={`wizard-opt-btn ${answers.userType === 'Residential' ? 'is-selected' : ''}`}
+                          className={`wizard-opt-btn ${
+                            answers.userType === 'Residential'
+                              ? 'is-selected'
+                              : ''
+                          }`}
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, userType: 'Residential' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              userType: 'Residential',
+                            }))
                             setWizardStep(2)
                           }}
                         >
                           🏠 Residential Home
                         </button>
+
                         <button
-                          className={`wizard-opt-btn ${answers.userType === 'Commercial' ? 'is-selected' : ''}`}
+                          className={`wizard-opt-btn ${
+                            answers.userType === 'Commercial'
+                              ? 'is-selected'
+                              : ''
+                          }`}
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, userType: 'Commercial' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              userType: 'Commercial',
+                            }))
                             setWizardStep(2)
                           }}
                         >
@@ -372,7 +471,6 @@ export default function ServicesPage() {
                     </motion.div>
                   )}
 
-                  {/* Step 2: Bill */}
                   {wizardStep === 2 && (
                     <motion.div
                       key="step-2"
@@ -382,41 +480,59 @@ export default function ServicesPage() {
                       className="wizard-step"
                     >
                       <span className="step-indicator">Question 2 of 3</span>
+
                       <h3>What is your average bi-monthly KSEB bill?</h3>
+
                       <div className="wizard-options">
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, monthlyBill: 'Low' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              monthlyBill: 'Low',
+                            }))
                             setWizardStep(3)
                           }}
                         >
                           💸 Under ₹1,500
                         </button>
+
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, monthlyBill: 'Medium' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              monthlyBill: 'Medium',
+                            }))
                             setWizardStep(3)
                           }}
                         >
                           💳 ₹1,500 to ₹4,000
                         </button>
+
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, monthlyBill: 'High' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              monthlyBill: 'High',
+                            }))
                             setWizardStep(3)
                           }}
                         >
                           ⚡ Over ₹4,000
                         </button>
                       </div>
-                      <button className="wizard-back-btn" onClick={() => setWizardStep(1)}>← Back</button>
+
+                      <button
+                        className="wizard-back-btn"
+                        onClick={() => setWizardStep(1)}
+                      >
+                        ← Back
+                      </button>
                     </motion.div>
                   )}
 
-                  {/* Step 3: Power Cuts */}
                   {wizardStep === 3 && (
                     <motion.div
                       key="step-3"
@@ -426,41 +542,59 @@ export default function ServicesPage() {
                       className="wizard-step"
                     >
                       <span className="step-indicator">Question 3 of 3</span>
+
                       <h3>How frequent are power cuts in your area?</h3>
+
                       <div className="wizard-options">
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, powerCuts: 'Rare' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              powerCuts: 'Rare',
+                            }))
                             setWizardStep(4)
                           }}
                         >
                           ☀️ Rare / Never (Good grid connection)
                         </button>
+
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, powerCuts: 'Occasional' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              powerCuts: 'Occasional',
+                            }))
                             setWizardStep(4)
                           }}
                         >
                           ⛈️ Occasional (Mainly during rain/monsoons)
                         </button>
+
                         <button
                           className="wizard-opt-btn"
                           onClick={() => {
-                            setAnswers(prev => ({ ...prev, powerCuts: 'Frequent' }))
+                            setAnswers((prev) => ({
+                              ...prev,
+                              powerCuts: 'Frequent',
+                            }))
                             setWizardStep(4)
                           }}
                         >
                           🔌 Frequent (Power goes down daily/weekly)
                         </button>
                       </div>
-                      <button className="wizard-back-btn" onClick={() => setWizardStep(2)}>← Back</button>
+
+                      <button
+                        className="wizard-back-btn"
+                        onClick={() => setWizardStep(2)}
+                      >
+                        ← Back
+                      </button>
                     </motion.div>
                   )}
 
-                  {/* Step 4: Results */}
                   {wizardStep === 4 && (
                     <motion.div
                       key="step-4"
@@ -469,31 +603,53 @@ export default function ServicesPage() {
                       exit={{ opacity: 0 }}
                       className="wizard-step wizard-step--result"
                     >
-                      <span className="result-badge">YOUR RECOMMENDED FIT</span>
+                      <span className="result-badge">
+                        YOUR RECOMMENDED FIT
+                      </span>
+
                       <h3>{recommendation.type}</h3>
-                      <p className="result-size">Recommended Size: <strong>{recommendation.size}</strong></p>
-                      
+
+                      <p className="result-size">
+                        Recommended Size:{' '}
+                        <strong>{recommendation.size}</strong>
+                      </p>
+
                       <div className="result-card">
                         <p>{recommendation.desc}</p>
+
                         <div className="result-card__meta">
-                          <p><strong>Government Subsidy:</strong> {recommendation.subsidy}</p>
-                          <p><strong>Estimated Savings:</strong> {recommendation.savings}</p>
+                          <p>
+                            <strong>Government Subsidy:</strong>{' '}
+                            {recommendation.subsidy}
+                          </p>
+
+                          <p>
+                            <strong>Estimated Savings:</strong>{' '}
+                            {recommendation.savings}
+                          </p>
                         </div>
                       </div>
 
                       <div className="result-actions">
                         <a
-                          href={`https://wa.me/919539220888?text=${encodeURIComponent(recommendation.whatsappMsg)}`}
+                          href={`https://wa.me/919539220888?text=${encodeURIComponent(
+                            recommendation.whatsappMsg
+                          )}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn--amber"
                         >
                           Book Free Site Survey
                         </a>
+
                         <button
                           className="btn btn--outline"
                           onClick={() => {
-                            setAnswers({ userType: '', monthlyBill: '', powerCuts: '' })
+                            setAnswers({
+                              userType: '',
+                              monthlyBill: '',
+                              powerCuts: '',
+                            })
                             setWizardStep(0)
                           }}
                         >
@@ -502,12 +658,15 @@ export default function ServicesPage() {
                       </div>
                     </motion.div>
                   )}
+
                 </AnimatePresence>
               </div>
             </div>
           </div>
         </section>
+
       </main>
+
       <Footer />
       <FloatingWhatsApp />
     </>

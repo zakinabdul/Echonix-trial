@@ -1,6 +1,9 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const services = [
@@ -59,8 +62,8 @@ export default function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
 
-  const location = useLocation()
-  const isHomePage = location.pathname === '/'
+  const pathname = usePathname()
+  const isHomePage = pathname === '/'
   const isMobile = useIsMobile()
   // Make desktop show the solid/boxed navbar by default.
   // On mobile keep existing behavior (solid when scrolled or off-homepage).
@@ -132,7 +135,7 @@ export default function Navbar() {
         <div className="navbar__inner">
           {/* Logo */}
           <Link
-            to="/"
+            href="/"
             onClick={() => window.scrollTo({ top: 0 })}
             className="navbar__logo"
             id="logo-link"
@@ -156,7 +159,7 @@ export default function Navbar() {
             <ul className="nav__list" role="list">
               <li className="nav__item">
                 <Link
-                  to="/"
+                  href="/"
                   onClick={() => window.scrollTo({ top: 0 })}
                   className="nav__link"
                 >
@@ -219,7 +222,7 @@ export default function Navbar() {
                         ) : (
                           <Link
                             key={i}
-                            to={a.href}
+                            href={a.href}
                             className="dropdown-item"
                             role="menuitem"
                             onClick={() => setAboutDropdownOpen(false)}
@@ -288,14 +291,14 @@ export default function Navbar() {
                 </AnimatePresence>
               </li>
 
-              <li className="nav__item"><Link to="/projects" className="nav__link">Projects</Link></li>
-              <li className="nav__item"><Link to="/blog" className="nav__link">News</Link></li>
+              <li className="nav__item"><Link href="/projects" className="nav__link">Projects</Link></li>
+              <li className="nav__item"><Link href="/blog" className="nav__link">News</Link></li>
             </ul>
           </nav>
 
           {/* Right Actions */}
           <div className="navbar__actions">
-            {/* WhatsApp mobile button - always visible on mobile, hidden on desktop */}
+            {/* WhatsApp mobile button */}
             <a
               href="https://wa.me/919539220888"
               className="navbar__wa-mobile"
@@ -395,7 +398,7 @@ export default function Navbar() {
               {/* Home */}
               <motion.div variants={navItemVariants}>
                 <Link
-                  to="/"
+                  href="/"
                   onClick={() => {
                     closeMenu()
                     window.scrollTo({ top: 0 })
@@ -478,7 +481,7 @@ export default function Navbar() {
                           ) : (
                             <Link
                               key={a.label}
-                              to={a.href}
+                              href={a.href}
                               onClick={closeMenu}
                               style={{
                                 fontSize: 18,
@@ -564,7 +567,7 @@ export default function Navbar() {
 
               <motion.div variants={navItemVariants}>
                 <Link
-                  to="/projects"
+                  href="/projects"
                   onClick={closeMenu}
                   style={{
                     display: 'block',
@@ -581,7 +584,7 @@ export default function Navbar() {
 
               <motion.div variants={navItemVariants}>
                 <Link
-                  to="/blog"
+                  href="/blog"
                   onClick={closeMenu}
                   style={{
                     display: 'block',

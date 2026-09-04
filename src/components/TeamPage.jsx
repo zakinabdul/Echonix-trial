@@ -1,3 +1,5 @@
+'use client'
+
 import Navbar from './Navbar'
 import Team from './Team'
 import Footer from './Footer'
